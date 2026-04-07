@@ -233,9 +233,6 @@ function App() {
             </div>
 
             <div className="card about">
-              <div className="about__media">
-                <img src={salemPhoto} alt="Salem Ebrahim" loading="lazy" />
-              </div>
               <div className="about__content">
                 <h3>Frontend Developer!</h3>
                 <p>
