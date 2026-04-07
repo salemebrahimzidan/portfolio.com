@@ -1,110 +1,51 @@
 import './App.css'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import salemPhoto from './assets/salem.jpeg'
+import {
+  projectPreviewClass,
+  ServiceIcon,
+  SocialIcon,
+  StatIcon,
+} from './icons'
+import { useI18n } from './providers/I18nProvider'
+import type { JourneyEntry, SkillEntry, StatItem } from './providers/localeTypes'
+
+const CAREER_START_YEAR = 2022
+
+function statValueDisplay(s: StatItem, locale: 'en' | 'ar'): string {
+  if (s.valueFrom === 'yearsSince2022') {
+    const years = Math.max(0, new Date().getFullYear() - CAREER_START_YEAR)
+    return locale === 'ar' ? `+${years}` : `${years}+`
+  }
+  return s.value
+}
 
 type NavItem = { id: string; label: string }
-type TimelineItem = { range: string; title: string; place: string; bullets: string[] }
-type Skill = { label: string; value: number }
 
 function App() {
+  const { locale, setLocale, t, messages } = useI18n()
+
   const nav = useMemo<NavItem[]>(
     () => [
-      { id: 'home', label: 'Home' },
-      { id: 'about', label: 'About' },
-      { id: 'journey', label: 'Education' },
-      { id: 'skills', label: 'Skills' },
-      { id: 'contact', label: 'Contact' },
+      { id: 'home', label: messages.nav.home },
+      { id: 'about', label: messages.nav.about },
+      { id: 'journey', label: messages.nav.journey },
+      { id: 'projects', label: messages.nav.projects },
+      { id: 'services', label: messages.nav.services },
+      { id: 'contact', label: messages.nav.contact },
     ],
-    [],
-  )
-
-  const education = useMemo<TimelineItem[]>(
-    () => [
-      {
-        range: '2015 - 2018',
-        title: 'General Secondary School',
-        place: 'West Tira Secondary School',
-        bullets: [
-          'Represented my school in a national-level competition for top students.',
-          'Achieved first place at Al-Hamul Center in academic excellence and teamwork.',
-          'Demonstrated leadership, communication, and problem-solving skills.',
-        ],
-      },
-      {
-        range: '2018 - 2022',
-        title: "Bachelor’s Degree - KAFR EL-SHEIKH UNIVERSITY",
-        place: 'Computers and Information (Software Engineering)',
-        bullets: [
-          'Graduated with a focus on software engineering fundamentals.',
-          'Passionate about building modern, interactive, responsive web experiences.',
-        ],
-      },
-    ],
-    [],
-  )
-  // Experience
-  const experience = useMemo<TimelineItem[]>(
-    () => [
-      {
-        range: '2022 - 2024',
-        title: 'Marketing Online | Riseoo | Egypt',
-        place: 'Social Media Marketing',
-        bullets: [
-          'Promoted skincare and haircare products across Instagram, TikTok, and Snapchat.',
-          'Created engaging content to attract target audiences.',
-          'Supported growth in online sales and brand awareness through creative campaigns.',
-        ],
-      },
-      {
-        range: 'NOV 2024 – April 2025',
-        title: 'Call Center | AlAhli Bank | Egypt',
-        place: 'Customer Support',
-        bullets: [
-          'Handled incoming customer calls and provided accurate banking information.',
-          'Assisted clients with account inquiries, card issues, and digital banking services.',
-          'Resolved complaints efficiently and recorded details in CRM.',
-        ],
-      },
-      {
-        range: '2025 - Now',
-        title: 'Public Services | Thiqah Al-Injaz Office | Saudi Arabia',
-        place: 'E-Government Services',
-        bullets: [
-          'Managed and promoted electronic government services (Absher, Qiwa, Muqeem, Balady).',
-          'Assisted clients with online applications and renewals efficiently.',
-          'Contributed to improving satisfaction and increasing office service reach.',
-        ],
-      },
-    ],
-    [],
-  )
-
-  const codingSkills = useMemo<Skill[]>(
-    () => [
-      { label: 'HTML', value: 90 },
-      { label: 'CSS', value: 80 },
-      { label: 'JavaScript', value: 65 },
-      { label: 'React.js', value: 70 },
-      { label: 'Tailwind CSS', value: 70 },
-      { label: 'Call API (REST)', value: 60 },
-      { label: 'Github', value: 75 },
-      { label: 'GitLab', value: 70 },
-    ],
-    [],
-  )
-
-  const professionalSkills = useMemo<Skill[]>(
-    () => [
-      { label: 'Excel', value: 95 },
-      { label: 'Word', value: 67 },
-      { label: 'Marketing', value: 85 },
-      { label: 'CV ATS', value: 80 },
-    ],
-    [],
+    [messages],
   )
 
   const [activeId, setActiveId] = useState('home')
+  const [photoTilt, setPhotoTilt] = useState({ x: 0, y: 0 })
+  const [reduceMotion, setReduceMotion] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
+  const heroPhotoRef = useRef<HTMLDivElement>(null)
   const sectionsRef = useRef<Record<string, HTMLElement | null>>({})
 
   useEffect(() => {
@@ -127,12 +68,45 @@ function App() {
         if (!visible?.target) return
         setActiveId((visible.target as HTMLElement).id)
       },
-      { root: null, threshold: [0.2, 0.35, 0.5], rootMargin: '-20% 0px -65% 0px' },
+      { root: null, threshold: [0.15, 0.3, 0.45], rootMargin: '-18% 0px -58% 0px' },
     )
 
     els.forEach((el) => obs.observe(el))
     return () => obs.disconnect()
   }, [nav])
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onChange = () => setReduceMotion(mq.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  useEffect(() => {
+    if (reduceMotion) return
+    const root = heroPhotoRef.current
+    if (!root) return
+
+    const onMove = (e: MouseEvent) => {
+      const r = root.getBoundingClientRect()
+      const cx = r.left + r.width / 2
+      const cy = r.top + r.height / 2
+      const nx = (e.clientX - cx) / (r.width / 2)
+      const ny = (e.clientY - cy) / (r.height / 2)
+      setPhotoTilt({
+        x: Math.max(-1, Math.min(1, nx)),
+        y: Math.max(-1, Math.min(1, ny)),
+      })
+    }
+    const onLeave = () => setPhotoTilt({ x: 0, y: 0 })
+
+    root.addEventListener('mousemove', onMove)
+    root.addEventListener('mouseleave', onLeave)
+    return () => {
+      root.removeEventListener('mousemove', onMove)
+      root.removeEventListener('mouseleave', onLeave)
+    }
+  }, [reduceMotion])
 
   const scrollToId = (id: string) => {
     const el = sectionsRef.current[id] ?? document.getElementById(id)
@@ -148,20 +122,60 @@ function App() {
   const [contactMessage, setContactMessage] = useState('')
   const [contactStatus, setContactStatus] = useState<'idle' | 'sent'>('idle')
 
-  const submitContact = (e: React.FormEvent) => {
+  const submitContact = (e: FormEvent) => {
     e.preventDefault()
     const name = contactName.trim()
     const email = contactEmail.trim()
     const message = contactMessage.trim()
     if (!name || !email || !message) return
 
-    const subject = `Portfolio message from ${name}`
-    const body = `Name: ${name}\nEmail: ${email}\n\n${message}\n`
-    window.location.href = `mailto:salem@example.com?subject=${encodeURIComponent(
+    const subject = t('contact.emailSubject', { name })
+    const body = t('contact.emailBody', { name, email, message })
+    window.location.href = `mailto:${messages.contact.emailDisplay}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`
     setContactStatus('sent')
   }
+
+  const year = String(new Date().getFullYear())
+
+  const journeyEntryEl = (e: JourneyEntry, idx: number, keyPrefix: string) => (
+    <div className="journey__entry" key={`${keyPrefix}-${idx}`}>
+      <div className="journey__period muted" dir="ltr">
+        {e.period}
+      </div>
+      <div className="journey__body">
+        <h4 className="journey__entryTitle">{e.title}</h4>
+        {e.subtitle ? <p className="journey__subtitle muted">{e.subtitle}</p> : null}
+        <ul className="journey__bullets">
+          {e.bullets.map((line, bi) => (
+            <li key={`${keyPrefix}-${idx}-b-${bi}`}>{line}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+
+  const skillRows = (items: SkillEntry[]) =>
+    items.map((s) => (
+      <div className="skill" key={s.label}>
+        <div className="skill__row">
+          <span className="skill__label" dir="ltr">
+            {s.label}
+          </span>
+          <span className="skill__value" dir="ltr">
+            {s.value}%
+          </span>
+        </div>
+        <div
+          className="skill__bar"
+          dir={locale === 'ar' ? 'rtl' : 'ltr'}
+          aria-hidden="true"
+        >
+          <div className="skill__fill" style={{ width: `${s.value}%` }} />
+        </div>
+      </div>
+    ))
 
   return (
     <div className="page">
@@ -171,222 +185,243 @@ function App() {
             className="brand"
             type="button"
             onClick={() => scrollToId('home')}
-            aria-label="Go to home"
+            aria-label={t('a11y.goHome')}
           >
             <span className="brand__dot" aria-hidden="true" />
             Salem
           </button>
 
-          <nav className="nav" aria-label="Primary">
-            {nav.map((item) => (
+          <div className="topbar__end">
+            <nav className="nav" aria-label={t('a11y.primaryNav')}>
+              {nav.map((item) => (
+                <button
+                  key={item.id}
+                  className={`nav__link ${activeId === item.id ? 'is-active' : ''}`}
+                  type="button"
+                  onClick={() => scrollToId(item.id)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+
+            <div className="topbar__tools">
               <button
-                key={item.id}
-                className={`nav__link ${activeId === item.id ? 'is-active' : ''}`}
+                className="toolbar-btn toolbar-btn--locale"
                 type="button"
-                onClick={() => scrollToId(item.id)}
+                onClick={() => setLocale(locale === 'en' ? 'ar' : 'en')}
+                aria-label={t('a11y.switchLanguage')}
               >
-                {item.label}
+                <span className="toolbar-btn__lang">
+                  {locale === 'en' ? 'عربي' : 'EN'}
+                </span>
               </button>
-            ))}
-          </nav>
+            </div>
+          </div>
         </div>
       </header>
 
       <main>
-        <section id="home" className="section hero">
+        <section id="home" className="section section--dark hero">
           <div className="container hero__grid">
             <div className="hero__copy">
-              <p className="kicker">Hi , I’m Salem Ebrahim</p>
-              <h1 className="hero__title">Frontend Developer</h1>
-              <p className="hero__lead">
-                I am front end Developer, I love sharing my experience with others, I
-                learned software engineering in faculty, and I also love to learn
-                something new every single day.
-              </p>
+              <p className="kicker">{messages.hero.kicker}</p>
+              <h1 className="hero__title hero__title--gradient">{messages.hero.title}</h1>
+              <p className="hero__lead">{messages.hero.lead}</p>
 
               <div className="hero__actions">
                 <button className="btn btn--primary" type="button" onClick={onHireMe}>
-                  Hire Me
+                  {messages.hero.hireMe}
                 </button>
                 <button className="btn btn--ghost" type="button" onClick={onLetsTalk}>
-                  Let’s Talk
+                  {messages.hero.letsTalk}
                 </button>
               </div>
             </div>
 
-            <div className="hero__visual" aria-hidden="true">
-              <div className="portrait">
-                <img src={salemPhoto} alt="" loading="eager" />
-              </div>
-              <div className="glow" />
-            </div>
-          </div>
-        </section>
-
-        <section id="about" className="section">
-          <div className="container">
-            <div className="section__head">
-              <h2>About Me</h2>
-              <p className="muted">
-                Frontend Developer building clean, responsive, interactive experiences.
-              </p>
-            </div>
-
-            <div className="card about">
-              <div className="about__content">
-                <h3>Frontend Developer!</h3>
-                <p>
-                  I am front end Developer, I love sharing my experience with others, I
-                  learned software engineering in faculty, and I also love to learn
-                  something new every single day.
-                </p>
-                <div className="about__actions">
-                  <button className="btn btn--primary" type="button" onClick={() => scrollToId('journey')}>
-                    Read More
-                  </button>
+            <div className="hero__visual" ref={heroPhotoRef} aria-hidden="true">
+              <div className="hero__photoStage">
+                <div className="glow" />
+                <div
+                  className="hero__photoTilt"
+                  style={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          transform: `perspective(960px) rotateX(${-photoTilt.y * 8}deg) rotateY(${photoTilt.x * 8}deg)`,
+                        }
+                  }
+                >
+                  <div className="portrait">
+                    <span className="portrait__orbit" aria-hidden="true" />
+                    <div className="portrait__inner">
+                      <img src={salemPhoto} alt="" loading="eager" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="journey" className="section">
+        <section id="about" className="section section--dark">
           <div className="container">
-            <div className="section__head">
-              <h2>My Journey</h2>
-              <p className="muted">Education and experience over the years.</p>
+            <div className="section__head section__head--center">
+              <h2>{messages.about.title}</h2>
+              <p className="muted">{messages.about.subtitle}</p>
             </div>
 
-            <div className="grid2">
-              <div className="panel">
-                <h3 className="panel__title">Education</h3>
-                <ol className="timeline">
-                  {education.map((item) => (
-                    <li className="timeline__item" key={item.title}>
-                      <div className="timeline__meta">{item.range}</div>
-                      <div className="timeline__card">
-                        <div className="timeline__title">{item.title}</div>
-                        <div className="timeline__place">{item.place}</div>
-                        <ul className="timeline__bullets">
-                          {item.bullets.map((b) => (
-                            <li key={b}>{b}</li>
-                          ))}
-                        </ul>
+            <div className="about__layout">
+              <div className="about__main">
+                <h3 className="about__heading">{messages.about.cardTitle}</h3>
+                <p className="about__text">{messages.about.cardBody}</p>
+
+                <ul className="stats">
+                  {messages.stats.map((s) => (
+                    <li className="stat-card" key={s.title}>
+                      <div className="stat-card__icon" aria-hidden>
+                        <StatIcon kind={s.icon} />
+                      </div>
+                      <div className="stat-card__meta">
+                        <div className="stat-card__value" dir="ltr">
+                          {statValueDisplay(s, locale)}
+                        </div>
+                        <div className="stat-card__title">{s.title}</div>
                       </div>
                     </li>
                   ))}
-                </ol>
-              </div>
+                </ul>
 
-              <div className="panel">
-                <h3 className="panel__title">Experience</h3>
-                <ol className="timeline">
-                  {experience.map((item) => (
-                    <li className="timeline__item" key={item.title}>
-                      <div className="timeline__meta">{item.range}</div>
-                      <div className="timeline__card">
-                        <div className="timeline__title">{item.title}</div>
-                        <div className="timeline__place">{item.place}</div>
-                        <ul className="timeline__bullets">
-                          {item.bullets.map((b) => (
-                            <li key={b}>{b}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="skills" className="section">
-          <div className="container">
-            <div className="section__head">
-              <h2>My Skills</h2>
-              <p className="muted">A quick overview of what I’m strongest at.</p>
-            </div>
-
-            <div className="grid2">
-              <div className="panel">
-                <h3 className="panel__title">Coding Skills</h3>
-                <div className="skills">
-                  {codingSkills.map((s) => (
-                    <div className="skill" key={s.label}>
-                      <div className="skill__row">
-                        <span>{s.label}</span>
-                        <span className="muted">{s.value}%</span>
-                      </div>
-                      <div className="skill__bar" aria-hidden="true">
-                        <div className="skill__fill" style={{ width: `${s.value}%` }} />
+                <div className="about__skills">
+                  <p className="about__skillsIntro muted">{messages.about.skillsIntro}</p>
+                  <div className="about__skillsGrid">
+                    <div className="about__skillsPanel">
+                      <h4 className="about__skillsCardTitle">{messages.about.codingSkillsTitle}</h4>
+                      <div className="skills skills--compact">{skillRows(messages.codingSkills)}</div>
+                    </div>
+                    <div className="about__skillsPanel">
+                      <h4 className="about__skillsCardTitle">
+                        {messages.about.professionalSkillsTitle}
+                      </h4>
+                      <div className="skills skills--compact">
+                        {skillRows(messages.professionalSkills)}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="panel">
-                <h3 className="panel__title">Professional Skills</h3>
-                <div className="skills">
-                  {professionalSkills.map((s) => (
-                    <div className="skill" key={s.label}>
-                      <div className="skill__row">
-                        <span>{s.label}</span>
-                        <span className="muted">{s.value}%</span>
-                      </div>
-                      <div className="skill__bar" aria-hidden="true">
-                        <div className="skill__fill" style={{ width: `${s.value}%` }} />
-                      </div>
-                    </div>
-                  ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="contact" className="section">
+        <section id="journey" className="section section--dark">
           <div className="container">
-            <div className="section__head">
-              <h2>Contact Me!</h2>
-              <p className="muted">
-                Send a message and I’ll get back to you as soon as possible.
-              </p>
+            <div className="section__head section__head--center">
+              <h2>{messages.journey.title}</h2>
+              <p className="muted">{messages.journey.subtitle}</p>
+            </div>
+            <div className="journey__grid">
+              <div className="journey__column">
+                <h3 className="journey__columnTitle">{messages.journey.educationTitle}</h3>
+                <div className="journey__entries">
+                  {messages.journey.education.map((e, i) => journeyEntryEl(e, i, 'ed'))}
+                </div>
+              </div>
+              <div className="journey__column">
+                <h3 className="journey__columnTitle">{messages.journey.experienceTitle}</h3>
+                <div className="journey__entries">
+                  {messages.journey.experience.map((e, i) => journeyEntryEl(e, i, 'ex'))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" className="section section--dark">
+          <div className="container">
+            <div className="section__head section__head--center">
+              <h2>{messages.projects.title}</h2>
+              <p className="muted">{messages.projects.subtitle}</p>
             </div>
 
-            <div className="card contact">
-              <form className="contact__form" onSubmit={submitContact}>
-                <div className="fields">
-                  <label className="field">
-                    <span className="field__label">Name</span>
+            <div className="projects-grid">
+              {messages.projectsList.map((p) => (
+                <article className="project-card" key={p.title}>
+                  <div className={projectPreviewClass(p.preview)} />
+                  <div className="project-card__body">
+                    <h3 className="project-card__title">{p.title}</h3>
+                    <p className="project-card__desc">{p.description}</p>
+                    <a className="btn btn--primary btn--sm" href={p.href}>
+                      {messages.projects.viewProject}
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="services" className="section section--dark">
+          <div className="container">
+            <div className="section__head section__head--center">
+              <h2>{messages.services.title}</h2>
+              <p className="muted">{messages.services.subtitle}</p>
+            </div>
+
+            <div className="services-grid">
+              {messages.servicesList.map((s) => (
+                <article className="service-card" key={s.title}>
+                  <div className="service-card__icon" aria-hidden>
+                    <ServiceIcon kind={s.icon} />
+                  </div>
+                  <h3 className="service-card__title">{s.title}</h3>
+                  <p className="service-card__desc">{s.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="section section--dark contact-section">
+          <div className="container">
+            <div className="section__head section__head--center">
+              <h2>{messages.contact.title}</h2>
+              <p className="muted">{messages.contact.subtitle}</p>
+            </div>
+
+            <div className="contact__layout">
+              <form className="contact__form card card--elevated" onSubmit={submitContact}>
+                <div className="fields fields--stack">
+                  <label className="field field--full">
+                    <span className="field__label">{messages.contact.name}</span>
                     <input
                       value={contactName}
                       onChange={(e) => setContactName(e.target.value)}
-                      placeholder="Your name"
+                      placeholder={messages.contact.namePlaceholder}
                       autoComplete="name"
                       required
                     />
                   </label>
 
-                  <label className="field">
-                    <span className="field__label">Email</span>
+                  <label className="field field--full">
+                    <span className="field__label">{messages.contact.email}</span>
                     <input
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
-                      placeholder="you@email.com"
+                      placeholder={messages.contact.emailPlaceholder}
                       autoComplete="email"
                       type="email"
+                      dir="ltr"
                       required
                     />
                   </label>
 
                   <label className="field field--full">
-                    <span className="field__label">Message</span>
+                    <span className="field__label">{messages.contact.message}</span>
                     <textarea
                       value={contactMessage}
                       onChange={(e) => setContactMessage(e.target.value)}
-                      placeholder="Write your message..."
+                      placeholder={messages.contact.messagePlaceholder}
                       rows={5}
                       required
                     />
@@ -395,23 +430,63 @@ function App() {
 
                 <div className="contact__actions">
                   <button className="btn btn--primary" type="submit">
-                    Submit
+                    {messages.contact.submit}
                   </button>
                   {contactStatus === 'sent' ? (
                     <span className="pill" role="status">
-                      Ready to send via email client
+                      {messages.contact.sentHint}
                     </span>
                   ) : null}
                 </div>
               </form>
+
+              <aside className="contact__aside">
+                <div className="contact__block">
+                  <div className="contact__blockLabel">{messages.contact.emailLabel}</div>
+                  <a
+                    className="contact__link"
+                    dir="ltr"
+                    href={`mailto:${messages.contact.emailDisplay}`}
+                  >
+                    {messages.contact.emailDisplay}
+                  </a>
+                </div>
+                <div className="contact__block">
+                  <div className="contact__blockLabel">{messages.contact.phoneLabel}</div>
+                  <a
+                    className="contact__link"
+                    dir="ltr"
+                    href={`tel:${messages.contact.phoneValue.replace(/[^\d+]/g, '')}`}
+                  >
+                    {messages.contact.phoneValue}
+                  </a>
+                </div>
+
+                <div className="contact__socialHead">{messages.contact.connectTitle}</div>
+                <div className="contact__socials">
+                  {messages.socials.map((s) => (
+                    <a
+                      key={s.id}
+                      className="social-btn"
+                      data-social={s.id}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                    >
+                      <SocialIcon id={s.id} />
+                    </a>
+                  ))}
+                </div>
+              </aside>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="footer">
+      <footer className="footer section--dark">
         <div className="container footer__inner">
-          <p className="muted">Copyright © 2024 by Salem Ebrahim | All Right Reserved .</p>
+          <p className="muted">{t('footer.copyright', { year })}</p>
         </div>
       </footer>
     </div>

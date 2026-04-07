@@ -1,0 +1,223 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "about": "عنّي",
+    "journey": "المسار",
+    "projects": "المشاريع",
+    "services": "الخدمات",
+    "contact": "تواصل"
+  },
+  "a11y": {
+    "goHome": "الانتقال إلى الرئيسية",
+    "primaryNav": "التنقل الرئيسي",
+    "switchLanguage": "تغيير اللغة"
+  },
+  "hero": {
+    "kicker": "مرحبًا، أنا سالم إبراهيم",
+    "title": "مطوّر واجهات ويب أمامية",
+    "lead": "أبني مواقع جميلة ومتجاوبة باستخدام React وJavaScript الحديث — واجهات نظيفة، تجربة مستخدم قوية، وأداء في الاعتبار.",
+    "hireMe": "وظّفني",
+    "letsTalk": "لنتحدث"
+  },
+  "about": {
+    "title": "عنّي",
+    "subtitle": "نظرة سريعة وما أركّز عليه يوميًا.",
+    "cardTitle": "شغوف بالويب",
+    "cardBody": "أنا مطوّر واجهات أمامية بخلفية في هندسة البرمجيات. أحوّل الأفكار إلى واجهات سريعة وسهلة الاستخدام، وأعمل مع الفريق، وأتعلّم كل يوم.",
+    "skillsIntro": "نظرة سريعة على أقوى مهاراتي.",
+    "codingSkillsTitle": "مهارات البرمجة",
+    "professionalSkillsTitle": "مهارات مهنية"
+  },
+  "stats": [
+    {
+      "icon": "users",
+      "title": "سنوات الخبرة",
+      "value": "+0",
+      "valueFrom": "yearsSince2022"
+    },
+    {
+      "icon": "gear",
+      "title": "React والويب",
+      "value": "خبير"
+    },
+    {
+      "icon": "trophy",
+      "title": "رضا العملاء",
+      "value": "100%"
+    }
+  ],
+  "projects": {
+    "title": "مشاريعي",
+    "subtitle": "بعض ما أعمله — يمكنك استبدال الروابط والصور لاحقًا.",
+    "viewProject": "عرض المشروع"
+  },
+  "projectsList": [
+    {
+      "title": "موقع تجارة إلكترونية",
+      "description": "عرض المنتجات، السلة، وتخطيط متجاوب.",
+      "href": "#",
+      "preview": "a"
+    },
+    {
+      "title": "لوحة تحكم",
+      "description": "رسوم بيانية وجداول ومكوّنات واجهة داكنة.",
+      "href": "#",
+      "preview": "b"
+    },
+    {
+      "title": "صفحة هبوط",
+      "description": "صفحة تسويقية بهيرو واضح ودعوات لإجراء.",
+      "href": "#",
+      "preview": "c"
+    }
+  ],
+  "services": {
+    "title": "خدماتي",
+    "subtitle": "ما يمكنني تقديمه لك"
+  },
+  "servicesList": [
+    {
+      "icon": "web",
+      "title": "تطوير الويب",
+      "description": "مواقع وتطبيقات متجاوبة بـ React وأدوات حديثة."
+    },
+    {
+      "icon": "responsive",
+      "title": "تصميم متجاوب",
+      "description": "تخطيطات تعمل بشكل ممتاز من الجوال إلى سطح المكتب."
+    },
+    {
+      "icon": "ui",
+      "title": "واجهة وتجربة مستخدم",
+      "description": "تسلسل بصري واضح ومسافات وتفاعل منسّق."
+    },
+    {
+      "icon": "seo",
+      "title": "أداء وأساسيات SEO",
+      "description": "HTML دلالي، تحميلات أسرع، وبنية ميتا منطقية."
+    }
+  ],
+  "codingSkills": [
+    { "label": "HTML", "value": 90 },
+    { "label": "CSS", "value": 80 },
+    { "label": "JavaScript", "value": 65 },
+    { "label": "React.js", "value": 70 },
+    { "label": "Tailwind CSS", "value": 70 },
+    { "label": "استدعاء API (REST)", "value": 60 },
+    { "label": "GitHub", "value": 75 },
+    { "label": "GitLab", "value": 70 }
+  ],
+  "professionalSkills": [
+    { "label": "Excel", "value": 95 },
+    { "label": "Word", "value": 67 },
+    { "label": "التسويق", "value": 85 },
+    { "label": "سيرة ATS", "value": 80 }
+  ],
+  "journey": {
+    "title": "مساري المهني",
+    "subtitle": "التعليم والخبرة عبر السنوات.",
+    "educationTitle": "التعليم",
+    "experienceTitle": "الخبرة",
+    "education": [
+      {
+        "period": "2015 – 2018",
+        "title": "الثانوية العامة — مدرسة طيرة الغربية الثانوية",
+        "bullets": [
+          "المشاركة في مسابقات علمية على المستوى الوطني.",
+          "المركز الأول على مستوى مركز الحامول.",
+          "تنمية مهارات القيادة والعمل الجماعي."
+        ]
+      },
+      {
+        "period": "2018 – 2022",
+        "title": "بكالوريوس — جامعة كفر الشيخ",
+        "subtitle": "حاسبات ومعلومات (هندسة البرمجيات)",
+        "bullets": [
+          "أسس قوية في مبادئ هندسة البرمجيات وأفضل الممارسات.",
+          "التركيز على بناء تجارب ويب حديثة ومتجاوبة."
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "period": "2022 – 2024",
+        "title": "تسويق أونلاين — Riseoo — مصر",
+        "subtitle": "تسويق عبر وسائل التواصل",
+        "bullets": [
+          "الترويج للعلامات على إنستغرام وتيك توك وسناب شات.",
+          "إنشاء محتوى وحملات جذابة للعملاء.",
+          "التعاون مع الفرق لتنمية الحضور الرقمي."
+        ]
+      },
+      {
+        "period": "نوفمبر 2024 – أبريل 2025",
+        "title": "خدمة عملاء — البنك الأهلي — مصر",
+        "subtitle": "دعم العملاء",
+        "bullets": [
+          "تقديم معلومات واضحة عن المنتجات والخدمات المصرفية.",
+          "دعم العملاء في القنوات المصرفية الرقمية.",
+          "توثيق التفاعلات بدقة في أنظمة CRM."
+        ]
+      },
+      {
+        "period": "2025 – الآن",
+        "title": "خدمات حكومية — مكتب ثقة الإنجاز — السعودية",
+        "subtitle": "خدمات حكومية إلكترونية",
+        "bullets": [
+          "المساعدة في الخدمات الحكومية (أبشر، قوى، ومنصات ذات صلة).",
+          "إرشاد المستخدمين في الطلبات والإجراءات.",
+          "ضمان التوثيق الدقيق والمتابعة."
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "تواصل معي",
+    "subtitle": "أرسل رسالة وسأرد عليك في أقرب وقت.",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "message": "الرسالة",
+    "namePlaceholder": "اسمك",
+    "emailPlaceholder": "you@email.com",
+    "messagePlaceholder": "اكتب رسالتك...",
+    "submit": "إرسال الرسالة",
+    "sentHint": "جاهز للإرسال عبر بريدك",
+    "emailSubject": "رسالة من الموقع من {{name}}",
+    "emailBody": "الاسم: {{name}}\nالبريد: {{email}}\n\n{{message}}\n",
+    "phoneLabel": "الهاتف",
+    "phoneValue": "+966 56 050 6289",
+    "emailLabel": "البريد",
+    "emailDisplay": "salemebrahim165@gmail.com",
+    "connectTitle": "تواصل"
+  },
+  "socials": [
+    {
+      "id": "instagram",
+      "href": "https://instagram.com/",
+      "label": "إنستغرام"
+    },
+    {
+      "id": "facebook",
+      "href": "https://facebook.com/",
+      "label": "فيسبوك"
+    },
+    {
+      "id": "twitter",
+      "href": "https://twitter.com/",
+      "label": "تويتر"
+    },
+    {
+      "id": "linkedin",
+      "href": "https://www.linkedin.com/in/salemebrahimzidan",
+      "label": "لينكد إن"
+    },
+    {
+      "id": "whatsapp",
+      "href": "https://wa.me/966560506289",
+      "label": "واتساب"
+    }
+  ],
+  "footer": {
+    "copyright": "© {{year}} سالم إبراهيم | جميع الحقوق محفوظة."
+  }
+}

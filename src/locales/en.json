@@ -1,0 +1,223 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "journey": "Journey",
+    "projects": "Projects",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "a11y": {
+    "goHome": "Go to home",
+    "primaryNav": "Primary",
+    "switchLanguage": "Switch language"
+  },
+  "hero": {
+    "kicker": "Hi, I'm Salem Ebrahim",
+    "title": "Front-End Web Developer",
+    "lead": "I build beautiful, responsive websites with React and modern JavaScript — clean UI, solid UX, and performance in mind.",
+    "hireMe": "Hire Me",
+    "letsTalk": "Let's Talk"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "A quick introduction and what I focus on day to day.",
+    "cardTitle": "Passionate about the web",
+    "cardBody": "I'm a front-end developer with a software engineering background. I enjoy turning ideas into fast, accessible interfaces, collaborating with others, and learning something new every day.",
+    "skillsIntro": "A quick overview of what I'm strongest at.",
+    "codingSkillsTitle": "Coding Skills",
+    "professionalSkillsTitle": "Professional Skills"
+  },
+  "stats": [
+    {
+      "icon": "users",
+      "title": "Years experience",
+      "value": "0+",
+      "valueFrom": "yearsSince2022"
+    },
+    {
+      "icon": "gear",
+      "title": "React & web",
+      "value": "Expert"
+    },
+    {
+      "icon": "trophy",
+      "title": "Client satisfaction",
+      "value": "100%"
+    }
+  ],
+  "projects": {
+    "title": "My Projects",
+    "subtitle": "A few things I've built — swap in your own links and screenshots anytime.",
+    "viewProject": "View Project"
+  },
+  "projectsList": [
+    {
+      "title": "E‑Commerce Site",
+      "description": "Product listing, cart flow, and responsive layout.",
+      "href": "#",
+      "preview": "a"
+    },
+    {
+      "title": "Dashboard App",
+      "description": "Charts, tables, and dark-friendly UI components.",
+      "href": "#",
+      "preview": "b"
+    },
+    {
+      "title": "Landing Page",
+      "description": "Marketing page with strong hero and clear CTAs.",
+      "href": "#",
+      "preview": "c"
+    }
+  ],
+  "services": {
+    "title": "My Services",
+    "subtitle": "What I can do for you"
+  },
+  "servicesList": [
+    {
+      "icon": "web",
+      "title": "Web Development",
+      "description": "Responsive sites and apps with React and modern tooling."
+    },
+    {
+      "icon": "responsive",
+      "title": "Responsive Design",
+      "description": "Layouts that work beautifully from mobile to desktop."
+    },
+    {
+      "icon": "ui",
+      "title": "UI / UX",
+      "description": "Clear hierarchy, spacing, and interaction polish."
+    },
+    {
+      "icon": "seo",
+      "title": "Performance & SEO basics",
+      "description": "Semantic HTML, fast loads, and sensible meta structure."
+    }
+  ],
+  "codingSkills": [
+    { "label": "HTML", "value": 90 },
+    { "label": "CSS", "value": 80 },
+    { "label": "JavaScript", "value": 65 },
+    { "label": "React.js", "value": 70 },
+    { "label": "Tailwind CSS", "value": 70 },
+    { "label": "Call API (REST)", "value": 60 },
+    { "label": "GitHub", "value": 75 },
+    { "label": "GitLab", "value": 70 }
+  ],
+  "professionalSkills": [
+    { "label": "Excel", "value": 95 },
+    { "label": "Word", "value": 67 },
+    { "label": "Marketing", "value": 85 },
+    { "label": "CV ATS", "value": 80 }
+  ],
+  "journey": {
+    "title": "My Journey",
+    "subtitle": "Education and experience over the years.",
+    "educationTitle": "Education",
+    "experienceTitle": "Experience",
+    "education": [
+      {
+        "period": "2015 – 2018",
+        "title": "General Secondary School — West Tira Secondary School",
+        "bullets": [
+          "Participated in national academic competitions.",
+          "First place at Al-Hamul Center.",
+          "Developed leadership and teamwork skills."
+        ]
+      },
+      {
+        "period": "2018 – 2022",
+        "title": "Bachelor's Degree — Kafr El-Sheikh University",
+        "subtitle": "Computers and Information (Software Engineering)",
+        "bullets": [
+          "Strong foundation in software engineering principles and best practices.",
+          "Focused on building modern, responsive web experiences."
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "period": "2022 – 2024",
+        "title": "Marketing Online — Riseoo — Egypt",
+        "subtitle": "Social Media Marketing",
+        "bullets": [
+          "Promoted brands on Instagram, TikTok, and Snapchat.",
+          "Created engaging content and campaigns for clients.",
+          "Collaborated with teams to grow online presence."
+        ]
+      },
+      {
+        "period": "NOV 2024 – Apr 2025",
+        "title": "Call Center — AlAhli Bank — Egypt",
+        "subtitle": "Customer Support",
+        "bullets": [
+          "Provided clear information on banking products and services.",
+          "Supported customers with digital banking channels.",
+          "Recorded interactions accurately in CRM systems."
+        ]
+      },
+      {
+        "period": "2025 – Now",
+        "title": "Public Services — Thiqah Al-Injaz Office — Saudi Arabia",
+        "subtitle": "E-Government Services",
+        "bullets": [
+          "Assisted with government services (Absher, Qiwa, and related platforms).",
+          "Guided users through applications and procedures.",
+          "Ensured accurate documentation and follow-up."
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact Me",
+    "subtitle": "Send a message — I'll get back to you as soon as I can.",
+    "name": "Your Name",
+    "email": "Your Email",
+    "message": "Your Message",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "you@email.com",
+    "messagePlaceholder": "Write your message...",
+    "submit": "Send Message",
+    "sentHint": "Ready to send via your email app",
+    "emailSubject": "Portfolio message from {{name}}",
+    "emailBody": "Name: {{name}}\nEmail: {{email}}\n\n{{message}}\n",
+    "phoneLabel": "Phone",
+    "phoneValue": "+966 56 050 6289",
+    "emailLabel": "Email",
+    "emailDisplay": "salemebrahim165@gmail.com",
+    "connectTitle": "Connect"
+  },
+  "socials": [
+    {
+      "id": "instagram",
+      "href": "https://instagram.com/",
+      "label": "Instagram"
+    },
+    {
+      "id": "facebook",
+      "href": "https://facebook.com/",
+      "label": "Facebook"
+    },
+    {
+      "id": "twitter",
+      "href": "https://twitter.com/",
+      "label": "Twitter"
+    },
+    {
+      "id": "linkedin",
+      "href": "https://www.linkedin.com/in/salemebrahimzidan",
+      "label": "LinkedIn"
+    },
+    {
+      "id": "whatsapp",
+      "href": "https://wa.me/966560506289",
+      "label": "WhatsApp"
+    }
+  ],
+  "footer": {
+    "copyright": "Copyright © {{year}} by Salem Ebrahim | All rights reserved."
+  }
+}
