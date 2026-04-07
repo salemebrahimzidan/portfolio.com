@@ -10,7 +10,9 @@
   "a11y": {
     "goHome": "Go to home",
     "primaryNav": "Primary",
-    "switchLanguage": "Switch language"
+    "switchLanguage": "Switch language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
     "kicker": "Hi, I'm Salem Ebrahim",

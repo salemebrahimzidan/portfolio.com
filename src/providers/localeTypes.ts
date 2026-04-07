@@ -51,6 +51,8 @@ export type LocaleMessages = {
     goHome: string
     primaryNav: string
     switchLanguage: string
+    openMenu: string
+    closeMenu: string
   }
   hero: {
     kicker: string
