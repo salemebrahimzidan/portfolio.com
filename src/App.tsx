@@ -39,6 +39,7 @@ function App() {
   )
 
   const [activeId, setActiveId] = useState('home')
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const [photoTilt, setPhotoTilt] = useState({ x: 0, y: 0 })
   const [reduceMotion, setReduceMotion] = useState(
     () =>
@@ -111,8 +112,48 @@ function App() {
   const scrollToId = (id: string) => {
     const el = sectionsRef.current[id] ?? document.getElementById(id)
     if (!el) return
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const reduceMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    el.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    })
   }
+
+  const goToSection = (id: string) => {
+    scrollToId(id)
+    setMobileNavOpen(false)
+  }
+
+  useEffect(() => {
+    if (!mobileNavOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileNavOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [mobileNavOpen])
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 881px)')
+    const onChange = () => {
+      if (mq.matches) setMobileNavOpen(false)
+    }
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 880px)')
+    if (!mq.matches || !mobileNavOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [mobileNavOpen])
 
   const onHireMe = () => scrollToId('contact')
   const onLetsTalk = () => scrollToId('contact')
@@ -184,7 +225,7 @@ function App() {
           <button
             className="brand"
             type="button"
-            onClick={() => scrollToId('home')}
+            onClick={() => goToSection('home')}
             aria-label={t('a11y.goHome')}
           >
             <span className="brand__dot" aria-hidden="true" />
@@ -192,13 +233,31 @@ function App() {
           </button>
 
           <div className="topbar__end">
-            <nav className="nav" aria-label={t('a11y.primaryNav')}>
+            <button
+              type="button"
+              className="nav-menu-btn"
+              aria-expanded={mobileNavOpen}
+              aria-controls="primary-nav"
+              aria-label={mobileNavOpen ? t('a11y.closeMenu') : t('a11y.openMenu')}
+              onClick={() => setMobileNavOpen((o) => !o)}
+            >
+              <span className="nav-menu-btn__bars" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+            </button>
+            <nav
+              id="primary-nav"
+              className={`nav ${mobileNavOpen ? 'is-open' : ''}`}
+              aria-label={t('a11y.primaryNav')}
+            >
               {nav.map((item) => (
                 <button
                   key={item.id}
                   className={`nav__link ${activeId === item.id ? 'is-active' : ''}`}
                   type="button"
-                  onClick={() => scrollToId(item.id)}
+                  onClick={() => goToSection(item.id)}
                 >
                   {item.label}
                 </button>
@@ -219,24 +278,23 @@ function App() {
             </div>
           </div>
         </div>
+        {mobileNavOpen ? (
+          <button
+            type="button"
+            className="nav-backdrop"
+            tabIndex={-1}
+            aria-hidden="true"
+            onClick={() => setMobileNavOpen(false)}
+          />
+        ) : null}
       </header>
 
       <main>
         <section id="home" className="section section--dark hero">
           <div className="container hero__grid">
-            <div className="hero__copy">
+            <div className="hero__intro">
               <p className="kicker">{messages.hero.kicker}</p>
               <h1 className="hero__title hero__title--gradient">{messages.hero.title}</h1>
-              <p className="hero__lead">{messages.hero.lead}</p>
-
-              <div className="hero__actions">
-                <button className="btn btn--primary" type="button" onClick={onHireMe}>
-                  {messages.hero.hireMe}
-                </button>
-                <button className="btn btn--ghost" type="button" onClick={onLetsTalk}>
-                  {messages.hero.letsTalk}
-                </button>
-              </div>
             </div>
 
             <div className="hero__visual" ref={heroPhotoRef} aria-hidden="true">
@@ -259,6 +317,18 @@ function App() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div className="hero__rest">
+              <p className="hero__lead">{messages.hero.lead}</p>
+              <div className="hero__actions">
+                <button className="btn btn--primary" type="button" onClick={onHireMe}>
+                  {messages.hero.hireMe}
+                </button>
+                <button className="btn btn--ghost" type="button" onClick={onLetsTalk}>
+                  {messages.hero.letsTalk}
+                </button>
               </div>
             </div>
           </div>

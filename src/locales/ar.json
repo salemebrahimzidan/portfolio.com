@@ -10,7 +10,9 @@
   "a11y": {
     "goHome": "الانتقال إلى الرئيسية",
     "primaryNav": "التنقل الرئيسي",
-    "switchLanguage": "تغيير اللغة"
+    "switchLanguage": "تغيير اللغة",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة"
   },
   "hero": {
     "kicker": "مرحبًا، أنا سالم إبراهيم",
