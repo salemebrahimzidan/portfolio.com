@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { HiBriefcase } from 'react-icons/hi'
 import {
   educationItems,
   experienceItems,
@@ -70,13 +71,27 @@ export function QualificationSection() {
                 className="relative border-l-2 border-[#143D95] pb-8 pl-12 last:pb-0"
               >
                 <div className="absolute -left-5 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
-                  <GradCapIcon className="h-5 w-5" />
+                  {tab === 'experience' ? (
+                    <HiBriefcase className="h-5 w-5" aria-hidden />
+                  ) : (
+                    <GradCapIcon className="h-5 w-5" />
+                  )}
                 </div>
                 <h3 className="mb-1 text-xl font-bold">{item.title}</h3>
                 <p className="mb-2 text-gray-400">
                   {item.organization} • {item.date}
                 </p>
-                <p className="text-gray-300">{item.note}</p>
+                {'bullets' in item && item.bullets?.length ? (
+                  <ul className="list-outside list-disc space-y-1.5 pl-5 text-gray-300 marker:text-gray-500">
+                    {item.bullets.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  'note' in item && item.note != null && (
+                    <p className="text-gray-300">{item.note}</p>
+                  )
+                )}
               </div>
             ))}
           </div>

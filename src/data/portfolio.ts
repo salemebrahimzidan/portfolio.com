@@ -5,8 +5,10 @@ import alAmiahCleaningImage from '../assets/project-alamiah-cleaning-mecca.png'
 export const site = {
   name: 'Salem Ebrahim',
   title: 'Frontend Developer',
+  /** Shown above the hero heading (kicker / eyebrow). */
+  heroKicker: 'Frontend Developer | React',
   tagline:
-    'I build clean, responsive web interfaces and enjoy learning something new every day.',
+    'Frontend Developer specializing in React and TypeScript, focused on building responsive, scalable, and user-friendly web applications with clean code and modern UI.',
   email: 'salem@example.com',
   location: 'Saudi Arabia',
   phone: '+966 56 050 6289',
@@ -169,22 +171,26 @@ export const educationItems = [
 
 export const experienceItems = [
   {
+    title: 'Frontend Developer',
+    organization: 'BITS — Binary Integrated Technology Solutions | Saudi Arabia',
+    date: '12/2025 – Present',
+    note: 'Building and optimizing enterprise-grade React/TypeScript applications.',
+  },
+  {
+    title: 'Junior Frontend Developer',
+    organization: 'Self-Employed',
+    date: '2023 – 2024',
+    bullets: [
+      'Developed responsive web apps using React.',
+      'Built clean UI components and improved user experience.',
+      'Integrated APIs and handled basic frontend logic.',
+    ],
+  },
+  {
     title: 'Social Media Marketing',
     organization: 'Marketing Online | Riseoo | Egypt',
-    date: '2022 – 2024',
+    date: '2022 – 2023',
     note: 'Content and campaigns across Instagram, TikTok, and Snapchat.',
-  },
-  {
-    title: 'Customer Support',
-    organization: 'Call Center | AlAhli Bank | Egypt',
-    date: 'Nov 2024 – Apr 2025',
-    note: 'Banking inquiries, cards, digital channels, and CRM documentation.',
-  },
-  {
-    title: 'E‑Government Services',
-    organization: 'Public Services | Thiqah Al-Injaz Office | Saudi Arabia',
-    date: '2025 – Present',
-    note: 'Absher, Qiwa, Muqeem, Balady — applications, renewals, and client guidance.',
   },
 ]
 
