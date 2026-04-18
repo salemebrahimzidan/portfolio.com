@@ -142,33 +142,31 @@
     ],
     "experience": [
       {
-        "period": "2022 – 2024",
+        "period": "12/2025 – Present",
+        "title": "BITS — Binary Integrated Technology Solutions — Saudi Arabia",
+        "subtitle": "Frontend Developer",
+        "bullets": [
+          "Building and optimizing enterprise-grade React/TypeScript applications."
+        ]
+      },
+      {
+        "period": "2023 – 2024",
+        "title": "Self-Employed",
+        "subtitle": "Junior Frontend Developer",
+        "bullets": [
+          "Developed responsive web apps using React.",
+          "Built clean UI components and improved user experience.",
+          "Integrated APIs and handled basic frontend logic."
+        ]
+      },
+      {
+        "period": "2022 – 2023",
         "title": "Marketing Online — Riseoo — Egypt",
         "subtitle": "Social Media Marketing",
         "bullets": [
           "Promoted brands on Instagram, TikTok, and Snapchat.",
           "Created engaging content and campaigns for clients.",
           "Collaborated with teams to grow online presence."
-        ]
-      },
-      {
-        "period": "NOV 2024 – Apr 2025",
-        "title": "Call Center — AlAhli Bank — Egypt",
-        "subtitle": "Customer Support",
-        "bullets": [
-          "Provided clear information on banking products and services.",
-          "Supported customers with digital banking channels.",
-          "Recorded interactions accurately in CRM systems."
-        ]
-      },
-      {
-        "period": "2025 – Now",
-        "title": "Public Services — Thiqah Al-Injaz Office — Saudi Arabia",
-        "subtitle": "E-Government Services",
-        "bullets": [
-          "Assisted with government services (Absher, Qiwa, and related platforms).",
-          "Guided users through applications and procedures.",
-          "Ensured accurate documentation and follow-up."
         ]
       }
     ]
