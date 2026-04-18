@@ -9,7 +9,7 @@ export const site = {
   heroKicker: 'Frontend Developer | React',
   tagline:
     'Frontend Developer specializing in React and TypeScript, focused on building responsive, scalable, and user-friendly web applications with clean code and modern UI.',
-  email: 'salem@example.com',
+  email: 'salem@bits.sa',
   location: 'Saudi Arabia',
   phone: '+966 56 050 6289',
   /** International format, no + (for https://wa.me/...) */

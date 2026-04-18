@@ -33,10 +33,10 @@ export function AboutSection() {
       aria-labelledby="about-heading"
     >
       <div className="grid items-center gap-12 md:grid-cols-2">
-        <Reveal>
-          <div className="relative mx-auto h-64 w-64">
+        <Reveal className="justify-self-center md:justify-self-auto">
+          <div className="relative isolate mx-auto aspect-square w-64 max-w-full shrink-0">
             <div className="absolute inset-0 rounded-full bg-primary opacity-20 blur-xl" aria-hidden />
-            <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-primary">
+            <div className="relative aspect-square size-full overflow-hidden rounded-full border-4 border-primary">
               <img
                 src={profileImage}
                 alt={site.name}
@@ -44,7 +44,7 @@ export function AboutSection() {
                 height={256}
                 loading="lazy"
                 decoding="async"
-                className="h-full w-full object-cover"
+                className="block size-full rounded-full object-cover object-center"
               />
             </div>
           </div>
