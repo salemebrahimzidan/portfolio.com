@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "fix-ref-tailwind": "node scripts/fix-ref-html-tailwind.mjs",
+    "favicon": "node scripts/embed-favicon-svg.mjs",
     "dev": "vite",
     "build": "vite build",
     "predeploy": "npm run build",
