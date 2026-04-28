@@ -18,59 +18,73 @@ function SendIcon({ className }: { className?: string }) {
   );
 }
 
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
 export function ContactSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [toast, setToast] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
-  const validateForm = (): string | null => {
-    const n = name.trim();
-    const em = email.trim();
-    const msg = message.trim();
-
-    if (!n) return "Name is required";
-    if (!em) return "Email is required";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))
-      return "Please enter a valid email";
-    if (!msg) return "Message is required";
-    return null;
+  const showToast = (type: "success" | "error", message: string) => {
+    setToast({ type, message });
+    setTimeout(() => setToast(null), 4000);
   };
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    setErrorMessage("");
+    const n = name.trim();
+    const em = email.trim();
+    const msg = message.trim();
 
-    const validationError = validateForm();
-    if (validationError) {
-      setErrorMessage(validationError);
+    // Validation
+    if (!n) {
+      showToast("error", "Name is required.");
+      return;
+    }
+    if (!em) {
+      showToast("error", "Email is required.");
+      return;
+    }
+    if (!validateEmail(em)) {
+      showToast("error", "Please enter a valid email address.");
+      return;
+    }
+    if (!msg) {
+      showToast("error", "Message is required.");
       return;
     }
 
-    setStatus("loading");
+    setIsLoading(true);
 
     try {
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
-          from_name: name.trim(),
-          from_email: email.trim(),
-          message: message.trim(),
+          from_name: n,
+          from_email: em,
+          message: msg,
           to_email: "salemebrahim165@gmail.com",
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       );
-      setStatus("success");
+
+      showToast("success", "Message sent successfully.");
       setName("");
       setEmail("");
       setMessage("");
     } catch {
-      setStatus("error");
-      setErrorMessage("Failed to send message. Please try again.");
+      showToast("error", "Failed to send message. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -200,25 +214,18 @@ export function ContactSection() {
             </div>
             <button
               type="submit"
-              disabled={status === "loading"}
+              disabled={isLoading}
               className="flex w-full items-center justify-center rounded-lg bg-[#143D95] px-6 py-3 font-medium text-white transition-colors hover:bg-primary-dark disabled:opacity-50"
             >
               <SendIcon className="mr-2 h-4 w-4" />
-              {status === "loading" ? "Sending..." : "Send Message"}
+              {isLoading ? "Sending..." : "Send Message"}
             </button>
-            {status === "success" && (
-              <p className="text-sm text-green-400" role="status">
-                Message sent successfully.
-              </p>
-            )}
-            {status === "error" && (
-              <p className="text-sm text-red-400" role="alert">
-                Failed to send message. Please try again.
-              </p>
-            )}
-            {errorMessage && status === "idle" && (
-              <p className="text-sm text-red-400" role="alert">
-                {errorMessage}
+            {toast ? (
+              <p
+                className={`text-sm ${toast.type === "success" ? "text-green-400" : "text-red-400"}`}
+                role="status"
+              >
+                {toast.message}
               </p>
             )}
           </form>
