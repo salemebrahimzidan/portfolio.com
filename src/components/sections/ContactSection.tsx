@@ -1,5 +1,4 @@
 import { type FormEvent, useState } from "react";
-import emailjs from "@emailjs/browser";
 import { site } from "../../data/portfolio";
 import { Reveal } from "../ui/Reveal";
 
@@ -27,18 +26,16 @@ export function ContactSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [toast, setToast] = useState<{
-    type: "success" | "error";
-    message: string;
-  } | null>(null);
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState<"success" | "error" | null>(null);
+  const [statusMessage, setStatusMessage] = useState("");
 
-  const showToast = (type: "success" | "error", message: string) => {
-    setToast({ type, message });
-    setTimeout(() => setToast(null), 4000);
+  const showStatus = (type: "success" | "error", message: string) => {
+    setStatus(type);
+    setStatusMessage(message);
   };
 
-  const submit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const n = name.trim();
     const em = email.trim();
@@ -46,45 +43,69 @@ export function ContactSection() {
 
     // Validation
     if (!n) {
-      showToast("error", "Name is required.");
+      showStatus("error", "Name is required.");
       return;
     }
     if (!em) {
-      showToast("error", "Email is required.");
+      showStatus("error", "Email is required.");
       return;
     }
     if (!validateEmail(em)) {
-      showToast("error", "Please enter a valid email address.");
+      showStatus("error", "Please enter a valid email address.");
       return;
     }
     if (!msg) {
-      showToast("error", "Message is required.");
+      showStatus("error", "Message is required.");
       return;
     }
 
-    setIsLoading(true);
+    setIsSending(true);
+    setStatus(null);
+    setStatusMessage("");
 
     try {
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: n,
-          from_email: em,
-          message: msg,
-          to_email: "salemebrahim165@gmail.com",
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+      formData.append(
+        "access_key",
+        import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string,
       );
 
-      showToast("success", "Message sent successfully.");
-      setName("");
-      setEmail("");
-      setMessage("");
-    } catch {
-      showToast("error", "Failed to send message. Please try again.");
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data: unknown = await response.json();
+
+      if (import.meta.env.DEV) {
+        console.log("Web3Forms response:", data);
+      }
+
+      const success =
+        typeof data === "object" &&
+        data !== null &&
+        "success" in data &&
+        (data as { success?: unknown }).success === true;
+
+      if (response.ok && success) {
+        setStatus("success");
+        setStatusMessage("Message sent successfully.");
+        form.reset();
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        console.error("Web3Forms failed:", data);
+        setStatus("error");
+        setStatusMessage("Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+      setStatusMessage("Failed to send message. Please try again.");
     } finally {
-      setIsLoading(false);
+      setIsSending(false);
     }
   };
 
@@ -168,7 +189,9 @@ export function ContactSection() {
         </Reveal>
 
         <Reveal delayMs={80}>
-          <form className="space-y-6" onSubmit={submit}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <input type="hidden" name="subject" value="New Contact Message" />
+            <input type="hidden" name="from_name" value="Website Contact Form" />
             <div>
               <label htmlFor="name" className="mb-2 block font-medium">
                 Name
@@ -214,20 +237,20 @@ export function ContactSection() {
             </div>
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isSending}
               className="flex w-full items-center justify-center rounded-lg bg-[#143D95] px-6 py-3 font-medium text-white transition-colors hover:bg-primary-dark disabled:opacity-50"
             >
               <SendIcon className="mr-2 h-4 w-4" />
-              {isLoading ? "Sending..." : "Send Message"}
+              {isSending ? "Sending..." : "Send Message"}
             </button>
-            {toast ? (
+            {status ? (
               <p
-                className={`text-sm ${toast.type === "success" ? "text-green-400" : "text-red-400"}`}
+                className={`text-sm ${status === "success" ? "text-green-400" : "text-red-400"}`}
                 role="status"
               >
-                {toast.message}
+                {statusMessage}
               </p>
-            )}
+            ) : null}
           </form>
         </Reveal>
       </div>
