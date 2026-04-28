@@ -227,7 +227,7 @@ export function ContactSection() {
               >
                 {toast.message}
               </p>
-            ) : null}
+            )}
           </form>
         </Reveal>
       </div>
