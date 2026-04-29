@@ -182,7 +182,7 @@ export const experienceItems = [
   },
   {
     title: "Junior Frontend Developer",
-    organization: "Self-Employed",
+    organization: "Nile Delta Tech",
     date: "2023 – 2024",
     bullets: [
       "Developed responsive web apps using React.",
