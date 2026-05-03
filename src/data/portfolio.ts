@@ -5,8 +5,14 @@ import alAmiahCleaningImage from "../assets/project-alamiah-cleaning-mecca.png";
 export const site = {
   name: "Salem Ebrahim",
   title: "Frontend Developer",
-  /** Shown above the hero heading (kicker / eyebrow). */
-  heroKicker: "Frontend Developer | React",
+  /** Primary hero headline (role + focus). */
+  heroHeadline: "Frontend React Developer specialized in Enterprise SaaS Systems",
+  /** Supporting line under headline. */
+  heroSubline: "I build scalable, secure, high-performance dashboards.",
+  /** Low-emphasis line under hero CTAs. */
+  heroCtaSupportLine: "Focused on performance, scalability, and enterprise-grade UX.",
+  /** Eyebrow above headline. */
+  heroKicker: "Enterprise SaaS • Dashboards • Scalable Systems",
   tagline:
     "Frontend Developer specializing in React and TypeScript, focused on building responsive, scalable, and user-friendly web applications with clean code and modern UI.",
   email: "salemebrahim165@gmail.com",
@@ -18,13 +24,16 @@ export const site = {
   githubUrl: "https://github.com/",
   /** Add `public/cv.pdf` and set to `/cv.pdf` for download */
   cvUrl: null as string | null,
+  /** Site origin for Open Graph and sitemap (no trailing issues — keep trailing slash). */
+  canonicalBase: "https://salemebrahimzidan.github.io/portfolio/",
 };
 
 export const navSections = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
   { id: "skills", label: "Tech Stack" },
-  { id: "projects", label: "Projects" },
+  { id: "trust", label: "Trust" },
+  { id: "projects", label: "Case Studies" },
   { id: "qualification", label: "Qualification" },
   { id: "contact", label: "Contact" },
 ] as const;
@@ -34,6 +43,39 @@ export type NavSectionId = (typeof navSections)[number]["id"];
 export const about = {
   bio: `I am a front-end developer who loves sharing experience with others. I studied software engineering at university and keep sharpening my craft with modern tools like React and Tailwind CSS. I care about clear UI, solid structure, and thoughtful details.`,
   intro: "About Me",
+  whatIDoHeading: "What I Actually Do",
+  whatIDoLead:
+    "I build and improve enterprise SaaS systems used to manage assets, operations, and service workflows.",
+  whatIDoFocusLabel: "My work focuses on:",
+  whatIDoBullets: [
+    "Developing scalable frontend architectures using React and TypeScript",
+    "Building high-performance dashboards handling large datasets",
+    "Designing clean, intuitive UX for complex workflows",
+    "Improving system performance, validation, and security",
+    "Working with modern tools like TanStack Query, Zod, and modular UI systems",
+  ],
+  whatIDoClosing:
+    "I specialize in turning complex systems into simple, usable, and high-performing interfaces.",
+};
+
+/** Shown under the Tech Stack heading — how that stack is applied in practice. */
+export const skillsEnterpriseIntro =
+  "Experienced in building enterprise-level systems with complex workflows, real-time data handling, and high performance requirements using modern frontend technologies.";
+
+/** Credibility strip (enterprise positioning). */
+export const trust = {
+  statement:
+    "I ship interfaces for demanding product teams: role-based access, audit-friendly flows, and data-heavy screens that stay fast as the domain model grows.",
+  /** Shorter chips for the trust band (subset of full stack). */
+  highlightStack: [
+    "React",
+    "TypeScript",
+    "TanStack Query",
+    "Zod",
+    "React Hook Form",
+    "REST APIs",
+    "Tailwind CSS",
+  ] as const,
 };
 
 /** Proficiency tier shown in the Tech Stack section (no arbitrary percentages). */
@@ -70,7 +112,7 @@ export const skillCategories: SkillCategory[] = [
     id: "state-data",
     label: "State & Data",
     skills: [
-      { id: "react-query", name: "React Query", level: "Strong" },
+      { id: "react-query", name: "TanStack Query", level: "Strong" },
       { id: "zustand", name: "Zustand", level: "Strong" },
       { id: "rest", name: "REST APIs", level: "Strong" },
     ],
@@ -94,61 +136,56 @@ export const skillCategories: SkillCategory[] = [
   },
 ];
 
-export type ProjectFilterId = "all" | "react" | "typescript" | "vite";
-
-export const projectFilters: { id: ProjectFilterId; label: string }[] = [
-  { id: "all", label: "All Projects" },
-  { id: "react", label: "React" },
-  { id: "typescript", label: "TypeScript" },
-  { id: "vite", label: "Vite" },
-];
-
-export type Project = {
+export type CaseStudy = {
   id: string;
   title: string;
   description: string;
+  highlights: string[];
   image: string;
-  tags: string[];
+  /** Opens in a new tab when http(s). */
+  demoUrl?: string;
+  demoLabel?: string;
   liveUrl: string;
-  /** Taller preview on small screens (e.g. main portfolio screenshot). */
-  largeMobilePreview?: boolean;
+  liveLabel?: string;
 };
 
-const projectFilterTag: Record<Exclude<ProjectFilterId, "all">, string> = {
-  react: "React",
-  typescript: "TypeScript",
-  vite: "Vite",
-};
-
-export function projectMatchesFilter(
-  project: Project,
-  filter: ProjectFilterId,
-): boolean {
-  if (filter === "all") return true;
-  return project.tags.includes(projectFilterTag[filter]);
-}
-
-export const projects: Project[] = [
+export const caseStudies: CaseStudy[] = [
   {
     id: "p1",
-    title: "Portfolio",
+    title: "Personal Portfolio — React SPA",
     description:
-      "A personal portfolio highlighting skills, journey, and contact—built with performance and accessibility in mind.",
+      "A clean, high-performance single-page portfolio built to showcase technical work and case studies.",
+    highlights: [
+      "Reusable React components",
+      "Smooth navigation and scroll animations",
+      "Structured content without exposing sensitive data",
+    ],
     image: portfolioProjectImage,
-    tags: ["React", "TypeScript", "Vite", "Tailwind CSS"],
+    demoUrl: "https://salemebrahim.com/",
+    demoLabel: "Demo",
     liveUrl: "#projects",
-    largeMobilePreview: true,
+    liveLabel: "View details",
   },
   {
     id: "p2",
-    title: "Al Amiah Cleaning — Mecca",
+    title: "Regional Services — Marketing Web App",
     description:
-      "Mecca cleaning company site in React and TypeScript—services, coverage, and contact.",
+      "A multi-page marketing website designed to drive leads and improve trust on mobile.",
+    highlights: [
+      "Responsive, content-first layout",
+      "Conversion-focused sections",
+      "Optimized performance for mobile users",
+    ],
     image: alAmiahCleaningImage,
-    tags: ["React", "TypeScript", "Vite"],
-    liveUrl: "https://www.alamiahcleaningmecca.com",
+    demoUrl: "https://www.alamiahcleaningmecca.com",
+    demoLabel: "Demo",
+    liveUrl: "#contact",
+    liveLabel: "Get in touch",
   },
 ];
+
+/** @deprecated Use `caseStudies` — kept for any external imports. */
+export const projects = caseStudies;
 
 export type QualificationKind = "education" | "experience";
 
@@ -178,7 +215,7 @@ export const experienceItems = [
     organization:
       "BITS — Binary Integrated Technology Solutions | Saudi Arabia",
     date: "12/2025 – Present",
-    note: "Building and optimizing enterprise-grade React/TypeScript applications.",
+    note: "Building and optimizing enterprise-grade React/TypeScript applications for asset and operations management domains.",
   },
   {
     title: "Junior Frontend Developer",

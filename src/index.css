@@ -4,15 +4,14 @@
 @import '@fontsource/geist-sans/latin-600.css';
 @import '@fontsource/geist-sans/latin-700.css';
 
-/* Reference palette: https://new-portfolio-fawn-xi.vercel.app/ */
+/* SaaS-inspired dark palette (Linear / Vercel family) */
 @theme {
   --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
-  --color-ref-blue: #143d95;
-  --color-ref-cyan: #5fdbfa;
-  --color-ref-blue-dark: #0f2f70;
-  /* Tailwind `primary` utilities used by the reference */
-  --color-primary: #143d95;
-  --color-primary-dark: #0f2f70;
+  --color-ref-blue: #6366f1;
+  --color-ref-cyan: #22d3ee;
+  --color-ref-blue-dark: #4f46e5;
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
 }
 
 @layer base {
@@ -25,6 +24,6 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    @apply bg-gray-900 text-gray-100;
+    @apply bg-zinc-950 text-zinc-100;
   }
 }

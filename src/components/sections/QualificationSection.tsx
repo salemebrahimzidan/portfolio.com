@@ -29,10 +29,10 @@ export function QualificationSection() {
     <section id="qualification" className="scroll-mt-20 py-20" aria-labelledby="qual-heading">
       <Reveal>
         <div className="mb-16 text-center">
-          <h2 id="qual-heading" className="mb-4 text-3xl font-bold text-[#143D95]">
+          <h2 id="qual-heading" className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             My Qualification
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-300">
+          <p className="mx-auto max-w-2xl text-lg text-zinc-400">
             Where I studied and the roles that shaped how I work today.
           </p>
         </div>
@@ -41,7 +41,7 @@ export function QualificationSection() {
       <div className="mx-auto max-w-2xl">
         <Reveal delayMs={40}>
           <div className="mb-12 flex justify-center">
-            <div className="flex rounded-lg bg-gray-800 p-1" role="tablist" aria-label="Qualification type">
+            <div className="flex rounded-xl border border-zinc-800 bg-zinc-900/80 p-1" role="tablist" aria-label="Qualification type">
               {qualificationTabs.map((t) => {
                 const active = tab === t.id
                 return (
@@ -51,8 +51,8 @@ export function QualificationSection() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setTab(t.id)}
-                    className={`cursor-pointer rounded-md px-6 py-2 transition-colors ${
-                      active ? 'bg-gray-100 text-gray-700' : 'text-gray-300 hover:bg-gray-700'
+                    className={`cursor-pointer rounded-lg px-6 py-2 text-sm font-medium transition-colors ${
+                      active ? 'bg-indigo-600 text-white shadow-md' : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
                     }`}
                   >
                     {t.label}
@@ -68,9 +68,9 @@ export function QualificationSection() {
             {items.map((item, idx) => (
               <div
                 key={`${tab}-${idx}`}
-                className="relative border-l-2 border-[#143D95] pb-8 pl-12 last:pb-0"
+                className="relative border-l-2 border-indigo-500/80 pb-8 pl-12 last:pb-0"
               >
-                <div className="absolute -left-5 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
+                <div className="absolute -left-5 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-600/25">
                   {tab === 'experience' ? (
                     <HiBriefcase className="h-5 w-5" aria-hidden />
                   ) : (
@@ -78,18 +78,18 @@ export function QualificationSection() {
                   )}
                 </div>
                 <h3 className="mb-1 text-xl font-bold">{item.title}</h3>
-                <p className="mb-2 text-gray-400">
+                <p className="mb-2 text-zinc-500">
                   {item.organization} • {item.date}
                 </p>
                 {'bullets' in item && item.bullets?.length ? (
-                  <ul className="list-outside list-disc space-y-1.5 pl-5 text-gray-300 marker:text-gray-500">
+                  <ul className="list-outside list-disc space-y-1.5 pl-5 text-zinc-300 marker:text-zinc-600">
                     {item.bullets.map((line) => (
                       <li key={line}>{line}</li>
                     ))}
                   </ul>
                 ) : (
                   'note' in item && item.note != null && (
-                    <p className="text-gray-300">{item.note}</p>
+                    <p className="text-zinc-300">{item.note}</p>
                   )
                 )}
               </div>
