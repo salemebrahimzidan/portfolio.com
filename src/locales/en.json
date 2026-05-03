@@ -14,6 +14,10 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
+  "seo": {
+    "title": "Salem Ebrahim | Enterprise React Frontend Developer",
+    "description": "Frontend React developer specialized in enterprise SaaS systems. I build scalable, secure, high-performance dashboards with React, TypeScript, and TanStack Query."
+  },
   "hero": {
     "kicker": "Hi, I'm Salem Ebrahim",
     "title": "Front-End Web Developer",

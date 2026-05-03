@@ -112,18 +112,18 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="scroll-mt-20 py-20"
+      className="scroll-mt-20 py-20 md:py-24"
       aria-labelledby="contact-heading"
     >
       <Reveal>
         <div className="mb-16 text-center">
           <h2
             id="contact-heading"
-            className="mb-4 text-3xl font-bold text-[#143D95]"
+            className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl"
           >
             Get In Touch
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-300">
+          <p className="mx-auto max-w-2xl text-lg text-zinc-400">
             Send a message and I will get back to you as soon as I can.
           </p>
         </div>
@@ -132,7 +132,7 @@ export function ContactSection() {
       <div className="grid gap-12 md:grid-cols-2">
         <Reveal className="space-y-6">
           <div className="flex items-start space-x-4">
-            <div className="mt-1 text-xl text-[#143D95]" aria-hidden>
+            <div className="mt-1 text-xl text-indigo-400" aria-hidden>
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -145,12 +145,12 @@ export function ContactSection() {
             </div>
             <div>
               <h3 className="mb-1 text-xl font-bold">Location</h3>
-              <p className="text-gray-400">{site.location}</p>
+              <p className="text-zinc-400">{site.location}</p>
             </div>
           </div>
 
           <div className="flex items-start space-x-4">
-            <div className="mt-1 text-xl text-[#143D95]" aria-hidden>
+            <div className="mt-1 text-xl text-indigo-400" aria-hidden>
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -163,13 +163,13 @@ export function ContactSection() {
             </div>
             <div>
               <h3 className="mb-1 text-xl font-bold">Email</h3>
-              <p className="text-gray-400">{site.email}</p>
+              <p className="text-zinc-400">{site.email}</p>
             </div>
           </div>
 
           {site.phone ? (
             <div className="flex items-start space-x-4">
-              <div className="mt-1 text-xl text-[#143D95]" aria-hidden>
+              <div className="mt-1 text-xl text-indigo-400" aria-hidden>
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
@@ -182,7 +182,7 @@ export function ContactSection() {
               </div>
               <div>
                 <h3 className="mb-1 text-xl font-bold">Phone</h3>
-                <p className="text-gray-400">{site.phone}</p>
+                <p className="text-zinc-400">{site.phone}</p>
               </div>
             </div>
           ) : null}
@@ -203,7 +203,7 @@ export function ContactSection() {
                 onChange={(e) => setName(e.target.value)}
                 required
                 autoComplete="name"
-                className="w-full rounded-lg border border-gray-700 bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full rounded-xl border border-zinc-700 bg-zinc-900/30 px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
               />
             </div>
             <div>
@@ -218,7 +218,7 @@ export function ContactSection() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
-                className="w-full rounded-lg border border-gray-700 bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full rounded-xl border border-zinc-700 bg-zinc-900/30 px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
               />
             </div>
             <div>
@@ -232,13 +232,13 @@ export function ContactSection() {
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="w-full resize-none rounded-lg border border-gray-700 bg-transparent px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full resize-none rounded-xl border border-zinc-700 bg-zinc-900/30 px-4 py-3 text-zinc-100 placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
               />
             </div>
             <button
               type="submit"
               disabled={isSending}
-              className="flex w-full items-center justify-center rounded-lg bg-[#143D95] px-6 py-3 font-medium text-white transition-colors hover:bg-primary-dark disabled:opacity-50"
+              className="flex w-full items-center justify-center rounded-xl bg-indigo-600 px-6 py-3 font-semibold text-white shadow-lg shadow-indigo-600/20 transition-colors hover:bg-indigo-500 disabled:opacity-50"
             >
               <SendIcon className="mr-2 h-4 w-4" />
               {isSending ? "Sending..." : "Send Message"}

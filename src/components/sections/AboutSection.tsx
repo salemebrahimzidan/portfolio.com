@@ -29,62 +29,95 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="scroll-mt-20 bg-linear-to-b from-gray-900 to-gray-800 py-20"
+      className="scroll-mt-20 bg-linear-to-b from-zinc-950 to-zinc-900 py-20 md:py-28"
       aria-labelledby="about-heading"
     >
-      <div className="grid items-center gap-12 md:grid-cols-2">
-        <Reveal className="justify-self-center md:justify-self-auto">
-          <div className="relative isolate mx-auto aspect-square w-64 max-w-full shrink-0">
-            <div className="absolute inset-0 rounded-full bg-primary opacity-20 blur-xl" aria-hidden />
-            <div className="relative aspect-square size-full overflow-hidden rounded-full border-4 border-primary">
-              <img
-                src={profileImage}
-                alt={site.name}
-                width={256}
-                height={256}
-                loading="lazy"
-                decoding="async"
-                className="block size-full rounded-full object-cover object-center"
-              />
-            </div>
-          </div>
-        </Reveal>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-start gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
+          {/* First column: photo + intro */}
+          <Reveal>
+            <div className="flex flex-col items-start gap-6 md:gap-8">
+              <div className="relative isolate shrink-0">
+                <div
+                  className="absolute inset-0 scale-110 rounded-full bg-primary/20 blur-2xl"
+                  aria-hidden
+                />
+                <div className="relative size-44 overflow-hidden rounded-full border-4 border-primary ring-1 ring-white/10 sm:size-48 md:size-52">
+                  <img
+                    src={profileImage}
+                    alt={site.name}
+                    width={208}
+                    height={208}
+                    loading="lazy"
+                    decoding="async"
+                    className="block size-full object-cover object-center"
+                  />
+                </div>
+              </div>
 
-        <Reveal className="px-4">
-          <h2 id="about-heading" className="mb-6 text-3xl font-bold text-[#143D95]">
-            {about.intro}
-          </h2>
-          <p className="mb-6 text-lg">{about.bio}</p>
-          <div className="flex gap-4">
-            <a
-              href={site.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-2xl text-gray-300 transition-colors hover:text-primary"
-              aria-label="GitHub"
-            >
-              <GitHubIcon className="h-8 w-8" />
-            </a>
-            <a
-              href={site.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-2xl text-gray-300 transition-colors hover:text-primary"
-              aria-label="LinkedIn"
-            >
-              <LinkedInIcon className="h-8 w-8" />
-            </a>
-            <a
-              href={site.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-2xl text-gray-300 transition-colors hover:text-emerald-400"
-              aria-label="WhatsApp"
-            >
-              <WhatsAppIcon className="h-8 w-8" />
-            </a>
-          </div>
-        </Reveal>
+              <div className="min-w-0 text-start">
+                <h2
+                  id="about-heading"
+                  className="mb-4 text-3xl font-bold tracking-tight text-white sm:mb-5 sm:text-4xl"
+                >
+                  {about.intro}
+                </h2>
+                <p className="text-lg leading-relaxed text-zinc-300">{about.bio}</p>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Second column: role detail + links */}
+          <Reveal delayMs={50}>
+            <div className="min-w-0 text-start">
+              <h3 className="mb-3 text-xl font-semibold tracking-tight text-white sm:text-2xl">
+                {about.whatIDoHeading}
+              </h3>
+              <p className="mb-4 text-base leading-relaxed text-zinc-300 sm:text-lg">
+                {about.whatIDoLead}
+              </p>
+              <p className="mb-2 text-sm font-medium text-zinc-400">{about.whatIDoFocusLabel}</p>
+              <ul className="mb-6 list-outside list-disc space-y-2 pl-5 text-base leading-relaxed text-zinc-300 marker:text-zinc-600 sm:mb-7 sm:text-lg">
+                {about.whatIDoBullets.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p className="mb-10 text-base leading-relaxed text-zinc-300 sm:mb-11 sm:text-lg">
+                {about.whatIDoClosing}
+              </p>
+
+              <div className="flex justify-start gap-4">
+                <a
+                  href={site.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-2xl text-zinc-400 transition-colors hover:text-indigo-400"
+                  aria-label="GitHub"
+                >
+                  <GitHubIcon className="h-8 w-8" />
+                </a>
+                <a
+                  href={site.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-2xl text-zinc-400 transition-colors hover:text-indigo-400"
+                  aria-label="LinkedIn"
+                >
+                  <LinkedInIcon className="h-8 w-8" />
+                </a>
+                <a
+                  href={site.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-2xl text-zinc-400 transition-colors hover:text-emerald-400"
+                  aria-label="WhatsApp"
+                >
+                  <WhatsAppIcon className="h-8 w-8" />
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   )

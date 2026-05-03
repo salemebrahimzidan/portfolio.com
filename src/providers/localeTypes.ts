@@ -54,6 +54,10 @@ export type LocaleMessages = {
     openMenu: string
     closeMenu: string
   }
+  seo: {
+    title: string
+    description: string
+  }
   hero: {
     kicker: string
     title: string

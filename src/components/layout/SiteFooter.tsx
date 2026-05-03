@@ -36,7 +36,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
   }
 
   return (
-    <footer className="relative bg-gray-800 pt-12 pb-4">
+    <footer className="relative border-t border-zinc-800/80 bg-zinc-900 pt-12 pb-4">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
@@ -46,7 +46,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
               </span>
               {rest ? <span className="text-white">{rest}</span> : null}
             </h3>
-            <p className="text-center text-gray-400 md:text-left">{blurb}</p>
+            <p className="text-center text-zinc-400 md:text-left">{blurb}</p>
           </div>
           <div className="flex flex-col items-center">
             <h3 className="mb-4 text-xl font-bold">Quick Links</h3>
@@ -56,7 +56,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
                   <button
                     type="button"
                     onClick={() => scrollTo(s.id)}
-                    className="text-gray-400 transition-colors hover:text-white"
+                    className="text-zinc-400 transition-colors hover:text-white"
                   >
                     {s.label}
                   </button>
@@ -71,7 +71,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
                 href={site.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-gray-400 transition-colors hover:text-white"
+                className="text-2xl text-zinc-400 transition-colors hover:text-white"
                 aria-label="GitHub"
               >
                 <GitHubIcon className="h-7 w-7" />
@@ -80,7 +80,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
                 href={site.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-gray-400 transition-colors hover:text-white"
+                className="text-2xl text-zinc-400 transition-colors hover:text-white"
                 aria-label="LinkedIn"
               >
                 <LinkedInIcon className="h-7 w-7" />
@@ -89,7 +89,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
                 href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-gray-400 transition-colors hover:text-emerald-400"
+                className="text-2xl text-zinc-400 transition-colors hover:text-emerald-400"
                 aria-label="WhatsApp"
               >
                 <SiWhatsapp className="h-7 w-7" aria-hidden />
@@ -97,7 +97,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
             </div>
           </div>
         </div>
-        <div className="mt-12 border-t border-gray-700 pt-4 text-center text-gray-400">
+        <div className="mt-12 border-t border-zinc-800 pt-4 text-center text-zinc-500">
           <p>
             © {year} <span className="text-white">{site.name}</span>. All rights reserved.
           </p>
