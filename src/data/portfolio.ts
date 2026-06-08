@@ -16,7 +16,7 @@ export const site = {
   tagline:
     "Frontend Developer specializing in React and TypeScript, focused on building responsive, scalable, and user-friendly web applications with clean code and modern UI.",
   email: "salemebrahim165@gmail.com",
-  location: "Saudi Arabia",
+  location: "Riyadh, Saudi Arabia",
   phone: "+966 56 050 6289",
   /** International format, no + (for https://wa.me/...) */
   whatsappUrl: "https://wa.me/966560506289",

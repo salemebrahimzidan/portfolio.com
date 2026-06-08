@@ -26,13 +26,13 @@ export function QualificationSection() {
   const items = itemsByKind[tab]
 
   return (
-    <section id="qualification" className="scroll-mt-20 py-20" aria-labelledby="qual-heading">
+    <section id="qualification" className="section-shell" aria-labelledby="qual-heading">
       <Reveal>
-        <div className="mb-16 text-center">
-          <h2 id="qual-heading" className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <div className="mb-14 text-center md:mb-16">
+          <h2 id="qual-heading" className="section-title mb-4">
             My Qualification
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-zinc-400">
+          <p className="section-lead mx-auto">
             Where I studied and the roles that shaped how I work today.
           </p>
         </div>
@@ -41,7 +41,11 @@ export function QualificationSection() {
       <div className="mx-auto max-w-2xl">
         <Reveal delayMs={40}>
           <div className="mb-12 flex justify-center">
-            <div className="flex rounded-xl border border-zinc-800 bg-zinc-900/80 p-1" role="tablist" aria-label="Qualification type">
+            <div
+              className="flex rounded-xl border border-border bg-secondary p-1 shadow-sm"
+              role="tablist"
+              aria-label="Qualification type"
+            >
               {qualificationTabs.map((t) => {
                 const active = tab === t.id
                 return (
@@ -51,8 +55,10 @@ export function QualificationSection() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setTab(t.id)}
-                    className={`cursor-pointer rounded-lg px-6 py-2 text-sm font-medium transition-colors ${
-                      active ? 'bg-indigo-600 text-white shadow-md' : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200'
+                    className={`cursor-pointer rounded-lg px-6 py-2 text-sm font-semibold transition-colors ${
+                      active
+                        ? 'bg-primary text-white shadow-sm'
+                        : 'text-muted-foreground hover:text-primary'
                     }`}
                   >
                     {t.label}
@@ -64,32 +70,37 @@ export function QualificationSection() {
         </Reveal>
 
         <Reveal delayMs={80}>
-          <div className="space-y-8">
+          <div className="space-y-5">
             {items.map((item, idx) => (
-              <div
-                key={`${tab}-${idx}`}
-                className="relative border-l-2 border-indigo-500/80 pb-8 pl-12 last:pb-0"
-              >
-                <div className="absolute -left-5 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-600/25">
-                  {tab === 'experience' ? (
-                    <HiBriefcase className="h-5 w-5" aria-hidden />
-                  ) : (
-                    <GradCapIcon className="h-5 w-5" />
-                  )}
+              <div key={`${tab}-${idx}`} className="surface-card p-6 md:p-7">
+                <div className="mb-4 flex items-start gap-4">
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
+                    {tab === 'experience' ? (
+                      <HiBriefcase className="h-4 w-4" aria-hidden />
+                    ) : (
+                      <GradCapIcon className="h-4 w-4" />
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold tracking-tight text-primary">{item.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {item.organization} · {item.date}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="mb-1 text-xl font-bold">{item.title}</h3>
-                <p className="mb-2 text-zinc-500">
-                  {item.organization} • {item.date}
-                </p>
                 {'bullets' in item && item.bullets?.length ? (
-                  <ul className="list-outside list-disc space-y-1.5 pl-5 text-zinc-300 marker:text-zinc-600">
+                  <ul className="space-y-2 pl-14 text-sm leading-relaxed text-muted-foreground">
                     {item.bullets.map((line) => (
-                      <li key={line}>{line}</li>
+                      <li key={line} className="flex gap-2.5">
+                        <span className="list-dot" aria-hidden />
+                        <span>{line}</span>
+                      </li>
                     ))}
                   </ul>
                 ) : (
-                  'note' in item && item.note != null && (
-                    <p className="text-zinc-300">{item.note}</p>
+                  'note' in item &&
+                  item.note != null && (
+                    <p className="pl-14 text-sm leading-relaxed text-muted-foreground">{item.note}</p>
                   )
                 )}
               </div>

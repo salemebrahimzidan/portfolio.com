@@ -21,7 +21,7 @@ export function ContactSection() {
       const formData = new FormData(form)
       formData.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string)
       const response = await fetch(FORM_ENDPOINT, { method: 'POST', body: formData })
-      const data = await response.json() as { success?: boolean }
+      const data = (await response.json()) as { success?: boolean }
       if (response.ok && data.success) {
         setStatus('success')
         setStatusMessage('Message sent successfully.')
@@ -42,28 +42,100 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="scroll-mt-20 py-20 md:py-24" aria-labelledby="contact-heading">
+    <section id="contact" className="section-shell" aria-labelledby="contact-heading">
       <Reveal>
-        <div className="mb-16 text-center">
-          <h2 id="contact-heading" className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">Get In Touch</h2>
-          <p className="mx-auto max-w-2xl text-lg text-zinc-400">Send a message and I will get back to you as soon as I can.</p>
+        <div className="mb-14 text-center md:mb-16">
+          <h2 id="contact-heading" className="section-title mb-4">
+            Get In Touch
+          </h2>
+          <p className="section-lead mx-auto">
+            Send a message and I will get back to you as soon as I can.
+          </p>
         </div>
       </Reveal>
-      <div className="grid gap-12 md:grid-cols-2">
-        <Reveal className="space-y-6">
-          <div><h3 className="mb-1 text-xl font-bold">Location</h3><p className="text-zinc-400">{site.location}</p></div>
-          <div><h3 className="mb-1 text-xl font-bold">Email</h3><p className="text-zinc-400">{site.email}</p></div>
-          {site.phone ? <div><h3 className="mb-1 text-xl font-bold">Phone</h3><p className="text-zinc-400">{site.phone}</p></div> : null}
+
+      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+        <Reveal>
+          <div className="surface-card space-y-6 p-6 md:p-8">
+            <div>
+              <h3 className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
+                Location
+              </h3>
+              <p className="text-base font-medium text-primary">{site.location}</p>
+            </div>
+            <div>
+              <h3 className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
+                Email
+              </h3>
+              <p className="text-base font-medium text-primary">{site.email}</p>
+            </div>
+            {site.phone ? (
+              <div>
+                <h3 className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
+                  Phone
+                </h3>
+                <p className="text-base font-medium text-primary">{site.phone}</p>
+              </div>
+            ) : null}
+          </div>
         </Reveal>
+
         <Reveal delayMs={80}>
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="surface-card space-y-5 p-6 md:p-8" onSubmit={handleSubmit}>
             <input type="hidden" name="subject" value="New Contact Message" />
             <input type="hidden" name="from_name" value="Website Contact Form" />
-            <div><label htmlFor="name" className="mb-2 block font-medium">Name</label><input id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} required className="w-full rounded-xl border border-zinc-700 bg-zinc-900/30 px-4 py-3 text-zinc-100" /></div>
-            <div><label htmlFor="email" className="mb-2 block font-medium">Email</label><input id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full rounded-xl border border-zinc-700 bg-zinc-900/30 px-4 py-3 text-zinc-100" /></div>
-            <div><label htmlFor="message" className="mb-2 block font-medium">Message</label><textarea id="message" name="message" rows={5} required value={message} onChange={(e) => setMessage(e.target.value)} className="w-full resize-none rounded-xl border border-zinc-700 bg-zinc-900/30 px-4 py-3 text-zinc-100" /></div>
-            <button type="submit" disabled={isSending} className="w-full rounded-xl bg-indigo-600 px-6 py-3 font-semibold text-white hover:bg-indigo-500 disabled:opacity-50">{isSending ? 'Sending...' : 'Send Message'}</button>
-            {status ? <p className={`text-sm ${status === 'success' ? 'text-green-400' : 'text-red-400'}`} role="status">{statusMessage}</p> : null}
+            <div>
+              <label htmlFor="name" className="mb-2 block text-sm font-semibold text-primary">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="input-field"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="mb-2 block text-sm font-semibold text-primary">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="input-field"
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="mb-2 block text-sm font-semibold text-primary">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                required
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="input-field resize-none"
+              />
+            </div>
+            <button type="submit" disabled={isSending} className="btn-primary w-full disabled:opacity-50">
+              {isSending ? 'Sending...' : 'Send Message'}
+            </button>
+            {status ? (
+              <p
+                className={`text-sm ${status === 'success' ? 'text-emerald-600' : 'text-accent-warm'}`}
+                role="status"
+              >
+                {statusMessage}
+              </p>
+            ) : null}
           </form>
         </Reveal>
       </div>

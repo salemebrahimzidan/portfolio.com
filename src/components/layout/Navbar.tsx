@@ -9,6 +9,9 @@ type NavbarProps = {
   activeId: string
 }
 
+const navLinkClass =
+  'relative rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/25'
+
 function brandParts(fullName: string) {
   const i = fullName.indexOf(' ')
   if (i === -1) return { first: fullName, rest: '' }
@@ -43,22 +46,20 @@ export function Navbar({ items, activeId }: NavbarProps) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-50 w-full border-b border-zinc-800/60 bg-zinc-950/85 backdrop-blur-md transition-all duration-300">
-        <nav className="mx-auto max-w-7xl px-4 sm:px-6" aria-label="Primary">
-          <div className="flex h-20 items-center justify-between">
+      <header className="fixed top-0 left-0 z-50 w-full border-b border-border bg-navbar/95 shadow-[0_4px_24px_rgba(15,23,42,0.06)] backdrop-blur-md">
+        <nav className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" aria-label="Primary">
+          <div className="flex h-16 items-center justify-between md:h-18">
             <button
               type="button"
               onClick={() => scrollToId('home')}
-              className="text-2xl font-bold transition-transform hover:scale-105"
+              className="rounded-md text-lg font-bold tracking-tight text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/25"
               aria-label="Go to home"
             >
-              <span className="bg-linear-to-r from-ref-blue to-ref-cyan bg-clip-text text-transparent">
-                {first}
-              </span>
-              {rest ? <span className="text-white">{rest}</span> : null}
+              {first}
+              {rest ? <span className="font-semibold text-muted-foreground">{rest}</span> : null}
             </button>
 
-            <ul className="hidden items-center space-x-3 md:flex">
+            <ul className="hidden items-center gap-0.5 md:flex">
               {items.map((item) => {
                 const active = activeId === item.id
                 return (
@@ -66,16 +67,14 @@ export function Navbar({ items, activeId }: NavbarProps) {
                     <button
                       type="button"
                       onClick={() => scrollToId(item.id)}
-                      className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                        active ? 'text-white' : 'text-zinc-400 hover:text-white'
+                      aria-current={active ? 'true' : undefined}
+                      className={`${navLinkClass} ${
+                        active ? 'text-primary' : 'text-muted-foreground hover:text-primary'
                       }`}
                     >
                       {item.label}
                       {active ? (
-                        <span
-                          className="absolute bottom-0 left-0 h-0.5 w-full bg-linear-to-r from-blue-600 to-ref-cyan"
-                          aria-hidden
-                        />
+                        <span className="absolute inset-x-2 -bottom-px h-0.5 rounded-full bg-accent-warm" aria-hidden />
                       ) : null}
                     </button>
                   </li>
@@ -83,30 +82,27 @@ export function Navbar({ items, activeId }: NavbarProps) {
               })}
             </ul>
 
-            <div className="flex items-center md:hidden">
+            <div className="flex items-center gap-2 md:hidden">
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-lg p-2 text-zinc-300 transition-colors hover:bg-zinc-800"
+                onClick={() => scrollToId('contact')}
+                className="btn-accent px-4 py-2 text-xs"
+              >
+                Contact
+              </button>
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-primary"
                 aria-expanded={open}
                 aria-controls={panelId}
                 onClick={() => setOpen((v) => !v)}
                 aria-label={open ? 'Close menu' : 'Open menu'}
               >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   {open ? (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   ) : (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   )}
                 </svg>
               </button>
@@ -116,7 +112,7 @@ export function Navbar({ items, activeId }: NavbarProps) {
       </header>
 
       <div
-        className={`fixed inset-0 z-40 bg-black/60 transition-opacity md:hidden ${
+        className={`fixed inset-0 z-40 bg-primary/20 transition-opacity md:hidden ${
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         aria-hidden={!open}
@@ -125,26 +121,25 @@ export function Navbar({ items, activeId }: NavbarProps) {
 
       <aside
         id={panelId}
-        className={`fixed inset-y-0 right-0 z-50 w-[min(100%,320px)] transform border-l border-zinc-800 bg-zinc-950 shadow-2xl transition-transform duration-300 ease-out md:hidden ${
+        role={open ? 'dialog' : undefined}
+        aria-modal={open ? true : undefined}
+        aria-label={open ? 'Site navigation' : undefined}
+        aria-hidden={!open}
+        inert={!open ? true : undefined}
+        className={`fixed inset-y-0 right-0 z-50 w-[min(100%,320px)] border-l border-border bg-navbar transition-transform duration-300 ease-out md:hidden ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
-        aria-hidden={!open}
       >
-        <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
-          <span className="text-sm font-semibold text-white">Menu</span>
+        <div className="flex items-center justify-between border-b border-border px-4 py-3">
+          <span className="text-sm font-semibold text-primary">Menu</span>
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="rounded-lg p-2 text-zinc-300 hover:bg-zinc-800"
+            className="rounded-lg p-2 text-muted-foreground hover:bg-secondary hover:text-primary"
             aria-label="Close menu"
           >
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
@@ -156,8 +151,11 @@ export function Navbar({ items, activeId }: NavbarProps) {
                 <button
                   type="button"
                   onClick={() => scrollToId(item.id)}
-                    className={`w-full rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors ${
-                    active ? 'bg-indigo-600 text-white' : 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
+                  aria-current={active ? 'true' : undefined}
+                  className={`w-full rounded-md px-4 py-3 text-left text-sm font-medium transition-colors ${
+                    active
+                      ? 'bg-secondary text-primary'
+                      : 'text-muted-foreground hover:bg-secondary hover:text-primary'
                   }`}
                 >
                   {item.label}
