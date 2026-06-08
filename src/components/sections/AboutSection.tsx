@@ -27,97 +27,83 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export function AboutSection() {
   return (
-    <section
-      id="about"
-      className="scroll-mt-20 bg-linear-to-b from-zinc-950 to-zinc-900 py-20 md:py-28"
-      aria-labelledby="about-heading"
-    >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-start gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
-          {/* First column: photo + intro */}
-          <Reveal>
-            <div className="flex flex-col items-start gap-6 md:gap-8">
-              <div className="relative isolate shrink-0">
-                <div
-                  className="absolute inset-0 scale-110 rounded-full bg-primary/20 blur-2xl"
-                  aria-hidden
-                />
-                <div className="relative size-44 overflow-hidden rounded-full border-4 border-primary ring-1 ring-white/10 sm:size-48 md:size-52">
-                  <img
-                    src={profileImage}
-                    alt={site.name}
-                    width={208}
-                    height={208}
-                    loading="lazy"
-                    decoding="async"
-                    className="block size-full object-cover object-center"
-                  />
-                </div>
-              </div>
-
-              <div className="min-w-0 text-start">
-                <h2
-                  id="about-heading"
-                  className="mb-4 text-3xl font-bold tracking-tight text-white sm:mb-5 sm:text-4xl"
-                >
-                  {about.intro}
-                </h2>
-                <p className="text-lg leading-relaxed text-zinc-300">{about.bio}</p>
-              </div>
+    <section id="about" className="section-shell" aria-labelledby="about-heading">
+      <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
+        <Reveal>
+          <div className="flex flex-col items-start gap-8">
+            <div className="size-44 overflow-hidden rounded-2xl border border-border shadow-[0_12px_40px_rgba(15,23,42,0.1)] sm:size-48">
+              <img
+                src={profileImage}
+                alt={site.name}
+                width={208}
+                height={208}
+                loading="lazy"
+                decoding="async"
+                className="block size-full object-cover object-center"
+              />
             </div>
-          </Reveal>
 
-          {/* Second column: role detail + links */}
-          <Reveal delayMs={50}>
-            <div className="min-w-0 text-start">
-              <h3 className="mb-3 text-xl font-semibold tracking-tight text-white sm:text-2xl">
-                {about.whatIDoHeading}
-              </h3>
-              <p className="mb-4 text-base leading-relaxed text-zinc-300 sm:text-lg">
-                {about.whatIDoLead}
-              </p>
-              <p className="mb-2 text-sm font-medium text-zinc-400">{about.whatIDoFocusLabel}</p>
-              <ul className="mb-6 list-outside list-disc space-y-2 pl-5 text-base leading-relaxed text-zinc-300 marker:text-zinc-600 sm:mb-7 sm:text-lg">
-                {about.whatIDoBullets.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <p className="mb-10 text-base leading-relaxed text-zinc-300 sm:mb-11 sm:text-lg">
-                {about.whatIDoClosing}
-              </p>
-
-              <div className="flex justify-start gap-4">
-                <a
-                  href={site.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-2xl text-zinc-400 transition-colors hover:text-indigo-400"
-                  aria-label="GitHub"
-                >
-                  <GitHubIcon className="h-8 w-8" />
-                </a>
-                <a
-                  href={site.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-2xl text-zinc-400 transition-colors hover:text-indigo-400"
-                  aria-label="LinkedIn"
-                >
-                  <LinkedInIcon className="h-8 w-8" />
-                </a>
-                <a
-                  href={site.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-2xl text-zinc-400 transition-colors hover:text-emerald-400"
-                  aria-label="WhatsApp"
-                >
-                  <WhatsAppIcon className="h-8 w-8" />
-                </a>
-              </div>
+            <div>
+              <h2 id="about-heading" className="section-title mb-4">
+                {about.intro}
+              </h2>
+              <p className="section-lead">{about.bio}</p>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
+
+        <Reveal delayMs={50}>
+          <div className="surface-card p-6 md:p-8">
+            <h3 className="mb-4 text-xl font-bold tracking-tight text-primary sm:text-2xl">
+              {about.whatIDoHeading}
+            </h3>
+            <p className="mb-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {about.whatIDoLead}
+            </p>
+            <p className="section-eyebrow mb-3">{about.whatIDoFocusLabel}</p>
+            <ul className="mb-6 space-y-3 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {about.whatIDoBullets.map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span className="list-dot" aria-hidden />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mb-8 border-t border-border pt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {about.whatIDoClosing}
+            </p>
+
+            <div className="flex gap-3">
+              <a
+                href={site.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost size-10 p-0"
+                aria-label="GitHub"
+              >
+                <GitHubIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={site.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost size-10 p-0"
+                aria-label="LinkedIn"
+              >
+                <LinkedInIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={site.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost size-10 p-0 text-[#25D366] hover:border-[#25D366]/30 hover:text-[#128C7E]"
+                aria-label="WhatsApp"
+              >
+                <WhatsAppIcon className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

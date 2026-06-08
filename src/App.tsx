@@ -30,11 +30,11 @@ function App() {
   }, [scrollTo])
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 transition-colors duration-300">
+    <div className="min-h-screen bg-background text-foreground">
       <DocumentMeta />
       <Navbar items={navSections} activeId={activeId} />
 
-      <main className="mx-auto max-w-6xl px-4 pb-16 pt-20 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-6xl px-4 pb-20 pt-24 sm:px-6 lg:px-8">
         <HeroSection
           onViewProjects={() => scrollTo('projects')}
           onContact={() => scrollTo('contact')}

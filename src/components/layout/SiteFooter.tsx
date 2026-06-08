@@ -36,27 +36,27 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
   }
 
   return (
-    <footer className="relative border-t border-zinc-800/80 bg-zinc-900 pt-12 pb-4">
+    <footer className="border-t border-border bg-secondary pt-14 pb-8">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-10 md:grid-cols-3 md:gap-8">
           <div>
-            <h3 className="mb-4 text-center text-xl font-bold md:text-left">
-              <span className="bg-linear-to-r from-ref-blue to-ref-cyan bg-clip-text text-transparent">
-                {first}
-              </span>
-              {rest ? <span className="text-white">{rest}</span> : null}
+            <h3 className="mb-3 text-base font-bold tracking-tight text-primary md:text-left">
+              {first}
+              {rest ? <span className="font-semibold text-muted-foreground">{rest}</span> : null}
             </h3>
-            <p className="text-center text-zinc-400 md:text-left">{blurb}</p>
+            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground md:text-left">{blurb}</p>
           </div>
-          <div className="flex flex-col items-center">
-            <h3 className="mb-4 text-xl font-bold">Quick Links</h3>
-            <ul className="space-y-2 text-center">
+          <div>
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
+              Quick Links
+            </h3>
+            <ul className="space-y-2">
               {navSections.map((s) => (
                 <li key={s.id}>
                   <button
                     type="button"
                     onClick={() => scrollTo(s.id)}
-                    className="text-zinc-400 transition-colors hover:text-white"
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {s.label}
                   </button>
@@ -64,42 +64,44 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
               ))}
             </ul>
           </div>
-          <div className="flex flex-col items-center md:items-end">
-            <h3 className="mb-4 text-xl font-bold">Connect With Me</h3>
-            <div className="flex items-center gap-3">
+          <div className="md:text-right">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
+              Connect With Me
+            </h3>
+            <div className="flex items-center gap-2 md:justify-end">
               <a
                 href={site.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-zinc-400 transition-colors hover:text-white"
+                className="btn-ghost size-10 p-0"
                 aria-label="GitHub"
               >
-                <GitHubIcon className="h-7 w-7" />
+                <GitHubIcon className="h-4 w-4" />
               </a>
               <a
                 href={site.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-zinc-400 transition-colors hover:text-white"
+                className="btn-ghost size-10 p-0"
                 aria-label="LinkedIn"
               >
-                <LinkedInIcon className="h-7 w-7" />
+                <LinkedInIcon className="h-4 w-4" />
               </a>
               <a
                 href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-2xl text-zinc-400 transition-colors hover:text-emerald-400"
+                className="btn-ghost size-10 p-0 text-[#25D366] hover:border-[#25D366]/30"
                 aria-label="WhatsApp"
               >
-                <SiWhatsapp className="h-7 w-7" aria-hidden />
+                <SiWhatsapp className="h-4 w-4" aria-hidden />
               </a>
             </div>
           </div>
         </div>
-        <div className="mt-12 border-t border-zinc-800 pt-4 text-center text-zinc-500">
+        <div className="mt-12 border-t border-border pt-6 text-center text-sm text-muted-foreground">
           <p>
-            © {year} <span className="text-white">{site.name}</span>. All rights reserved.
+            © {year} {site.name}. All rights reserved.
           </p>
         </div>
       </div>
