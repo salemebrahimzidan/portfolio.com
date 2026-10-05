@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { site } from '../../data/portfolio'
-import { useI18n } from '../../providers/I18nProvider'
+import { useI18n } from '../../providers/i18n-context'
 
 function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
   let el = document.querySelector(`meta[${attr}="${key}"]`)
@@ -10,6 +10,16 @@ function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
     document.head.appendChild(el)
   }
   el.setAttribute('content', content)
+}
+
+function upsertCanonical(href: string) {
+  let el = document.querySelector('link[rel="canonical"]')
+  if (!el) {
+    el = document.createElement('link')
+    el.setAttribute('rel', 'canonical')
+    document.head.appendChild(el)
+  }
+  el.setAttribute('href', href)
 }
 
 /** Syncs document title and meta tags from i18n + site config (SPA SEO baseline). */
@@ -24,8 +34,11 @@ export function DocumentMeta() {
     upsertMeta('property', 'og:title', t('seo.title'))
     upsertMeta('property', 'og:description', description)
     upsertMeta('property', 'og:type', 'website')
+    upsertMeta('property', 'og:locale', locale === 'ar' ? 'ar_SA' : 'en_US')
     if (site.canonicalBase) {
-      upsertMeta('property', 'og:url', site.canonicalBase.replace(/\/$/, '') + '/')
+      const canonicalUrl = site.canonicalBase.replace(/\/$/, '') + '/'
+      upsertMeta('property', 'og:url', canonicalUrl)
+      upsertCanonical(canonicalUrl)
     }
     upsertMeta('name', 'twitter:card', 'summary_large_image')
     upsertMeta('name', 'twitter:title', t('seo.title'))

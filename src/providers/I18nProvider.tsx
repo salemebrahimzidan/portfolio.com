@@ -1,17 +1,8 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from 'react'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import ar from '../locales/ar.json'
 import en from '../locales/en.json'
+import { I18nContext, type Locale } from './i18n-context'
 import type { LocaleMessages } from './localeTypes'
-
-export type Locale = 'en' | 'ar'
 
 const STORAGE_KEY = 'portfolio-locale'
 
@@ -49,15 +40,6 @@ function interpolate(template: string, vars?: Record<string, string>): string {
   return out
 }
 
-type I18nContextValue = {
-  locale: Locale
-  setLocale: (l: Locale) => void
-  t: (key: string, vars?: Record<string, string>) => string
-  messages: LocaleMessages
-}
-
-const I18nContext = createContext<I18nContextValue | null>(null)
-
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(readStoredLocale)
 
@@ -91,10 +73,4 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   )
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
-}
-
-export function useI18n() {
-  const ctx = useContext(I18nContext)
-  if (!ctx) throw new Error('useI18n must be used within I18nProvider')
-  return ctx
 }

@@ -1,3 +1,4 @@
+import { useI18n } from '../../providers/i18n-context'
 import { Reveal } from '../ui/Reveal'
 
 type FinalCtaSectionProps = {
@@ -5,6 +6,8 @@ type FinalCtaSectionProps = {
 }
 
 export function FinalCtaSection({ onContact }: FinalCtaSectionProps) {
+  const { t } = useI18n()
+
   return (
     <section id="cta" className="scroll-mt-24 py-12 md:py-16" aria-labelledby="cta-heading">
       <Reveal>
@@ -17,10 +20,10 @@ export function FinalCtaSection({ onContact }: FinalCtaSectionProps) {
             id="cta-heading"
             className="relative mb-8 text-2xl font-bold leading-snug tracking-tight text-white sm:text-3xl"
           >
-            Need a scalable frontend for your system? I can help you build it professionally.
+            {t('cta.heading')}
           </h2>
           <button type="button" onClick={onContact} className="btn-accent relative px-8">
-            Contact Me
+            {t('cta.button')}
           </button>
         </div>
       </Reveal>

@@ -1,17 +1,8 @@
 import { useState } from 'react'
 import { HiBriefcase } from 'react-icons/hi'
-import {
-  educationItems,
-  experienceItems,
-  qualificationTabs,
-  type QualificationKind,
-} from '../../data/portfolio'
+import type { QualificationKind } from '../../data/portfolio'
+import { useI18n } from '../../providers/i18n-context'
 import { Reveal } from '../ui/Reveal'
-
-const itemsByKind = {
-  education: educationItems,
-  experience: experienceItems,
-} as const
 
 function GradCapIcon({ className }: { className?: string }) {
   return (
@@ -22,19 +13,22 @@ function GradCapIcon({ className }: { className?: string }) {
 }
 
 export function QualificationSection() {
+  const { t, messages } = useI18n()
   const [tab, setTab] = useState<QualificationKind>('education')
-  const items = itemsByKind[tab]
+  const items = tab === 'education' ? messages.qualification.educationItems : messages.qualification.experienceItems
+  const tabs: { id: QualificationKind; label: string }[] = [
+    { id: 'education', label: t('qualification.education') },
+    { id: 'experience', label: t('qualification.experience') },
+  ]
 
   return (
     <section id="qualification" className="section-shell" aria-labelledby="qual-heading">
       <Reveal>
         <div className="mb-14 text-center md:mb-16">
           <h2 id="qual-heading" className="section-title mb-4">
-            My Qualification
+            {t('qualification.title')}
           </h2>
-          <p className="section-lead mx-auto">
-            Where I studied and the roles that shaped how I work today.
-          </p>
+          <p className="section-lead mx-auto">{t('qualification.subtitle')}</p>
         </div>
       </Reveal>
 
@@ -44,24 +38,24 @@ export function QualificationSection() {
             <div
               className="flex rounded-xl border border-border bg-secondary p-1 shadow-sm"
               role="tablist"
-              aria-label="Qualification type"
+              aria-label={t('qualification.tabsLabel')}
             >
-              {qualificationTabs.map((t) => {
-                const active = tab === t.id
+              {tabs.map((item) => {
+                const active = tab === item.id
                 return (
                   <button
-                    key={t.id}
+                    key={item.id}
                     type="button"
                     role="tab"
                     aria-selected={active}
-                    onClick={() => setTab(t.id)}
+                    onClick={() => setTab(item.id)}
                     className={`cursor-pointer rounded-lg px-6 py-2 text-sm font-semibold transition-colors ${
                       active
                         ? 'bg-primary text-white shadow-sm'
                         : 'text-muted-foreground hover:text-primary'
                     }`}
                   >
-                    {t.label}
+                    {item.label}
                   </button>
                 )
               })}
@@ -81,15 +75,16 @@ export function QualificationSection() {
                       <GradCapIcon className="h-4 w-4" />
                     )}
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="text-lg font-bold tracking-tight text-primary">{item.title}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">
-                      {item.organization} · {item.date}
+                      {item.organization}{' · '}
+                      <bdi>{item.date}</bdi>
                     </p>
                   </div>
                 </div>
-                {'bullets' in item && item.bullets?.length ? (
-                  <ul className="space-y-2 pl-14 text-sm leading-relaxed text-muted-foreground">
+                {item.bullets?.length ? (
+                  <ul className="space-y-2 ps-14 text-sm leading-relaxed text-muted-foreground">
                     {item.bullets.map((line) => (
                       <li key={line} className="flex gap-2.5">
                         <span className="list-dot" aria-hidden />
@@ -98,9 +93,8 @@ export function QualificationSection() {
                     ))}
                   </ul>
                 ) : (
-                  'note' in item &&
                   item.note != null && (
-                    <p className="pl-14 text-sm leading-relaxed text-muted-foreground">{item.note}</p>
+                    <p className="ps-14 text-sm leading-relaxed text-muted-foreground">{item.note}</p>
                   )
                 )}
               </div>

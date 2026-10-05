@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
 import { site } from '../../data/portfolio'
+import { useI18n } from '../../providers/i18n-context'
 
 type HeroSectionProps = {
   onViewProjects: () => void
   onContact: () => void
-  onDownloadCv: () => void
 }
 
 const fadeUp = {
@@ -16,7 +16,9 @@ const fadeUp = {
   }),
 }
 
-export function HeroSection({ onViewProjects, onContact, onDownloadCv }: HeroSectionProps) {
+export function HeroSection({ onViewProjects, onContact }: HeroSectionProps) {
+  const { t } = useI18n()
+
   return (
     <section
       id="home"
@@ -41,7 +43,7 @@ export function HeroSection({ onViewProjects, onContact, onDownloadCv }: HeroSec
             animate="show"
             className="section-eyebrow lg:mx-auto"
           >
-            {site.heroKicker}
+            {t('hero.kicker')}
           </motion.p>
 
           <motion.h1
@@ -52,7 +54,7 @@ export function HeroSection({ onViewProjects, onContact, onDownloadCv }: HeroSec
             animate="show"
             className="section-title mb-5"
           >
-            {site.heroHeadline}
+            {t('hero.headline')}
           </motion.h1>
 
           <motion.p
@@ -62,7 +64,7 @@ export function HeroSection({ onViewProjects, onContact, onDownloadCv }: HeroSec
             animate="show"
             className="section-lead mb-10 md:mb-12 lg:mx-auto"
           >
-            {site.heroSubline}
+            {t('hero.subline')}
           </motion.p>
 
           <motion.div
@@ -74,14 +76,14 @@ export function HeroSection({ onViewProjects, onContact, onDownloadCv }: HeroSec
           >
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:justify-center">
               <button type="button" onClick={onViewProjects} className="btn-primary">
-                View My Work
+                {t('hero.viewProjects')}
               </button>
               <button type="button" onClick={onContact} className="btn-outline">
-                Hire Me
+                {t('hero.contact')}
               </button>
             </div>
             <p className="max-w-xl text-sm leading-relaxed text-muted-foreground lg:mx-auto">
-              {site.heroCtaSupportLine}
+              {t('hero.support')}
             </p>
           </motion.div>
 
@@ -94,21 +96,26 @@ export function HeroSection({ onViewProjects, onContact, onDownloadCv }: HeroSec
           >
             {site.cvUrl ? (
               <a href={site.cvUrl} download className="font-semibold text-accent hover:underline">
-                Download CV
+                {t('hero.downloadCv')}
               </a>
-            ) : (
-              <button
-                type="button"
-                onClick={onDownloadCv}
-                className="font-semibold text-accent hover:underline"
-              >
-                Download CV
-              </button>
-            )}
-            <span className="hidden sm:inline" aria-hidden>
-              ·
-            </span>
-            <span>React &amp; TypeScript · Enterprise UI delivery</span>
+            ) : null}
+            <a
+              href={site.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-accent hover:underline"
+            >
+              {t('hero.github')}
+            </a>
+            <a
+              href={site.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-accent hover:underline"
+            >
+              {t('hero.linkedin')}
+            </a>
+            <span dir="ltr">{t('hero.stack')}</span>
           </motion.div>
         </div>
       </div>

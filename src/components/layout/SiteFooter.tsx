@@ -1,5 +1,6 @@
 import { SiWhatsapp } from 'react-icons/si'
 import { navSections, site } from '../../data/portfolio'
+import { useI18n } from '../../providers/i18n-context'
 
 function brandParts(fullName: string) {
   const i = fullName.indexOf(' ')
@@ -23,13 +24,10 @@ function LinkedInIcon({ className }: { className?: string }) {
   )
 }
 
-type SiteFooterProps = {
-  blurb: string
-}
-
-export function SiteFooter({ blurb }: SiteFooterProps) {
+export function SiteFooter() {
   const year = new Date().getFullYear()
-  const { first, rest } = brandParts(site.name)
+  const { t } = useI18n()
+  const { first, rest } = brandParts(t('brand.name'))
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -40,15 +38,15 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-3 md:gap-8">
           <div>
-            <h3 className="mb-3 text-base font-bold tracking-tight text-primary md:text-left">
+            <h3 className="mb-3 text-base font-bold tracking-tight text-primary md:text-start">
               {first}
               {rest ? <span className="font-semibold text-muted-foreground">{rest}</span> : null}
             </h3>
-            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground md:text-left">{blurb}</p>
+            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground md:text-start">{t('footer.blurb')}</p>
           </div>
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
-              Quick Links
+            <h3 className="locale-label mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
+              {t('footer.quickLinks')}
             </h3>
             <ul className="space-y-2">
               {navSections.map((s) => (
@@ -58,15 +56,15 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
                     onClick={() => scrollTo(s.id)}
                     className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
-                    {s.label}
+                    {t(`nav.${s.id}`)}
                   </button>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="md:text-right">
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
-              Connect With Me
+          <div className="md:text-end">
+            <h3 className="locale-label mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
+              {t('footer.connect')}
             </h3>
             <div className="flex items-center gap-2 md:justify-end">
               <a
@@ -74,7 +72,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost size-10 p-0"
-                aria-label="GitHub"
+                aria-label={t('a11y.github')}
               >
                 <GitHubIcon className="h-4 w-4" />
               </a>
@@ -83,7 +81,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost size-10 p-0"
-                aria-label="LinkedIn"
+                aria-label={t('a11y.linkedin')}
               >
                 <LinkedInIcon className="h-4 w-4" />
               </a>
@@ -92,7 +90,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost size-10 p-0 text-[#25D366] hover:border-[#25D366]/30"
-                aria-label="WhatsApp"
+                aria-label={t('a11y.whatsapp')}
               >
                 <SiWhatsapp className="h-4 w-4" aria-hidden />
               </a>
@@ -101,7 +99,7 @@ export function SiteFooter({ blurb }: SiteFooterProps) {
         </div>
         <div className="mt-12 border-t border-border pt-6 text-center text-sm text-muted-foreground">
           <p>
-            © {year} {site.name}. All rights reserved.
+            {t('footer.copyright', { year: String(year), name: t('brand.name') })}
           </p>
         </div>
       </div>

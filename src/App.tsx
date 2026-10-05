@@ -10,35 +10,32 @@ import { ProjectsSection } from './components/sections/ProjectsSection'
 import { QualificationSection } from './components/sections/QualificationSection'
 import { SkillsSection } from './components/sections/SkillsSection'
 import { TrustSection } from './components/sections/TrustSection'
-import { navSections, site } from './data/portfolio'
+import { navSections } from './data/portfolio'
 import { useScrollSpy } from './hooks/useScrollSpy'
 
+const navbarOrder = ['home', 'about', 'skills', 'qualification', 'projects', 'contact'] as const
+
 function App() {
-  const sectionIds = useMemo(() => navSections.map((s) => s.id), [])
-  const activeId = useScrollSpy(sectionIds)
+  const navbarItems = useMemo(
+    () => navbarOrder.map((id) => navSections.find((section) => section.id === id)!),
+    [],
+  )
+  const navbarIds = useMemo(() => navbarItems.map((section) => section.id), [navbarItems])
+  const activeId = useScrollSpy(navbarIds)
 
   const scrollTo = useCallback((id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [])
 
-  const handleDownloadCv = useCallback(() => {
-    if (site.cvUrl) {
-      window.open(site.cvUrl, '_blank', 'noopener,noreferrer')
-      return
-    }
-    scrollTo('contact')
-  }, [scrollTo])
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <DocumentMeta />
-      <Navbar items={navSections} activeId={activeId} />
+      <Navbar items={navbarItems} activeId={activeId} />
 
       <main className="mx-auto max-w-6xl px-4 pb-20 pt-24 sm:px-6 lg:px-8">
         <HeroSection
           onViewProjects={() => scrollTo('projects')}
           onContact={() => scrollTo('contact')}
-          onDownloadCv={handleDownloadCv}
         />
         <AboutSection />
         <SkillsSection />
@@ -49,7 +46,7 @@ function App() {
         <ContactSection />
       </main>
 
-      <SiteFooter blurb="Enterprise-oriented React frontend developer — dashboards, complex workflows, and polished UI." />
+      <SiteFooter />
     </div>
   )
 }

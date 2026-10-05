@@ -1,4 +1,5 @@
-import { about, profileImage, site } from '../../data/portfolio'
+import { profileImage, site } from '../../data/portfolio'
+import { useI18n } from '../../providers/i18n-context'
 import { Reveal } from '../ui/Reveal'
 
 function GitHubIcon({ className }: { className?: string }) {
@@ -26,6 +27,8 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export function AboutSection() {
+  const { t, messages } = useI18n()
+
   return (
     <section id="about" className="section-shell" aria-labelledby="about-heading">
       <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
@@ -34,7 +37,7 @@ export function AboutSection() {
             <div className="size-44 overflow-hidden rounded-2xl border border-border shadow-[0_12px_40px_rgba(15,23,42,0.1)] sm:size-48">
               <img
                 src={profileImage}
-                alt={site.name}
+                alt={t('brand.name')}
                 width={208}
                 height={208}
                 loading="lazy"
@@ -45,9 +48,9 @@ export function AboutSection() {
 
             <div>
               <h2 id="about-heading" className="section-title mb-4">
-                {about.intro}
+                {t('about.intro')}
               </h2>
-              <p className="section-lead">{about.bio}</p>
+              <p className="section-lead">{t('about.bio')}</p>
             </div>
           </div>
         </Reveal>
@@ -55,14 +58,14 @@ export function AboutSection() {
         <Reveal delayMs={50}>
           <div className="surface-card p-6 md:p-8">
             <h3 className="mb-4 text-xl font-bold tracking-tight text-primary sm:text-2xl">
-              {about.whatIDoHeading}
+              {t('about.whatIDoHeading')}
             </h3>
             <p className="mb-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              {about.whatIDoLead}
+              {t('about.whatIDoLead')}
             </p>
-            <p className="section-eyebrow mb-3">{about.whatIDoFocusLabel}</p>
+            <p className="section-eyebrow mb-3">{t('about.whatIDoFocusLabel')}</p>
             <ul className="mb-6 space-y-3 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              {about.whatIDoBullets.map((item) => (
+              {messages.about.whatIDoBullets.map((item) => (
                 <li key={item} className="flex gap-3">
                   <span className="list-dot" aria-hidden />
                   <span>{item}</span>
@@ -70,7 +73,7 @@ export function AboutSection() {
               ))}
             </ul>
             <p className="mb-8 border-t border-border pt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              {about.whatIDoClosing}
+              {t('about.whatIDoClosing')}
             </p>
 
             <div className="flex gap-3">
@@ -79,7 +82,7 @@ export function AboutSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost size-10 p-0"
-                aria-label="GitHub"
+                aria-label={t('a11y.github')}
               >
                 <GitHubIcon className="h-4 w-4" />
               </a>
@@ -88,7 +91,7 @@ export function AboutSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost size-10 p-0"
-                aria-label="LinkedIn"
+                aria-label={t('a11y.linkedin')}
               >
                 <LinkedInIcon className="h-4 w-4" />
               </a>
@@ -97,7 +100,7 @@ export function AboutSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-ghost size-10 p-0 text-[#25D366] hover:border-[#25D366]/30 hover:text-[#128C7E]"
-                aria-label="WhatsApp"
+                aria-label={t('a11y.whatsapp')}
               >
                 <WhatsAppIcon className="h-4 w-4" />
               </a>

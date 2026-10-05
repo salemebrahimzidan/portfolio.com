@@ -1,16 +1,19 @@
 ﻿import { type FormEvent, useState } from 'react'
 import { site } from '../../data/portfolio'
+import { useI18n } from '../../providers/i18n-context'
 import { Reveal } from '../ui/Reveal'
 
 const FORM_ENDPOINT = 'https://api.web3forms.com/submit'
 
+const labelClass = 'locale-label mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent'
+
 export function ContactSection() {
+  const { t } = useI18n()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [isSending, setIsSending] = useState(false)
   const [status, setStatus] = useState<'success' | 'error' | null>(null)
-  const [statusMessage, setStatusMessage] = useState('')
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -24,18 +27,15 @@ export function ContactSection() {
       const data = (await response.json()) as { success?: boolean }
       if (response.ok && data.success) {
         setStatus('success')
-        setStatusMessage('Message sent successfully.')
         form.reset()
         setName('')
         setEmail('')
         setMessage('')
       } else {
         setStatus('error')
-        setStatusMessage('Failed to send message. Please try again.')
       }
     } catch {
       setStatus('error')
-      setStatusMessage('Failed to send message. Please try again.')
     } finally {
       setIsSending(false)
     }
@@ -46,11 +46,9 @@ export function ContactSection() {
       <Reveal>
         <div className="mb-14 text-center md:mb-16">
           <h2 id="contact-heading" className="section-title mb-4">
-            Get In Touch
+            {t('contact.title')}
           </h2>
-          <p className="section-lead mx-auto">
-            Send a message and I will get back to you as soon as I can.
-          </p>
+          <p className="section-lead mx-auto">{t('contact.subtitle')}</p>
         </div>
       </Reveal>
 
@@ -58,23 +56,21 @@ export function ContactSection() {
         <Reveal>
           <div className="surface-card space-y-6 p-6 md:p-8">
             <div>
-              <h3 className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
-                Location
-              </h3>
-              <p className="text-base font-medium text-primary">{site.location}</p>
+              <h3 className={labelClass}>{t('contact.location')}</h3>
+              <p className="text-base font-medium text-primary">{t('contact.locationValue')}</p>
             </div>
             <div>
-              <h3 className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
-                Email
-              </h3>
-              <p className="text-base font-medium text-primary">{site.email}</p>
+              <h3 className={labelClass}>{t('contact.email')}</h3>
+              <p dir="ltr" className="text-base font-medium text-primary rtl:text-right">
+                {site.email}
+              </p>
             </div>
             {site.phone ? (
               <div>
-                <h3 className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-accent">
-                  Phone
-                </h3>
-                <p className="text-base font-medium text-primary">{site.phone}</p>
+                <h3 className={labelClass}>{t('contact.phone')}</h3>
+                <p dir="ltr" className="text-base font-medium text-primary rtl:text-right">
+                  {site.phone}
+                </p>
               </div>
             ) : null}
           </div>
@@ -86,7 +82,7 @@ export function ContactSection() {
             <input type="hidden" name="from_name" value="Website Contact Form" />
             <div>
               <label htmlFor="name" className="mb-2 block text-sm font-semibold text-primary">
-                Name
+                {t('contact.name')}
               </label>
               <input
                 id="name"
@@ -94,12 +90,13 @@ export function ContactSection() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                dir="auto"
                 className="input-field"
               />
             </div>
             <div>
               <label htmlFor="email" className="mb-2 block text-sm font-semibold text-primary">
-                Email
+                {t('contact.email')}
               </label>
               <input
                 id="email"
@@ -108,12 +105,13 @@ export function ContactSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="input-field"
+                dir="ltr"
+                className="input-field rtl:text-right"
               />
             </div>
             <div>
               <label htmlFor="message" className="mb-2 block text-sm font-semibold text-primary">
-                Message
+                {t('contact.message')}
               </label>
               <textarea
                 id="message"
@@ -122,18 +120,19 @@ export function ContactSection() {
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                dir="auto"
                 className="input-field resize-none"
               />
             </div>
             <button type="submit" disabled={isSending} className="btn-primary w-full disabled:opacity-50">
-              {isSending ? 'Sending...' : 'Send Message'}
+              {isSending ? t('contact.sending') : t('contact.submit')}
             </button>
             {status ? (
               <p
                 className={`text-sm ${status === 'success' ? 'text-emerald-600' : 'text-accent-warm'}`}
                 role="status"
               >
-                {statusMessage}
+                {status === 'success' ? t('contact.success') : t('contact.error')}
               </p>
             ) : null}
           </form>
