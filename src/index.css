@@ -39,6 +39,10 @@
     @apply bg-background text-foreground;
   }
 
+  html[lang='ar'] body {
+    font-family: 'Segoe UI', Tahoma, var(--font-sans);
+  }
+
   h1,
   h2,
   h3,
@@ -106,4 +110,17 @@
   .list-dot {
     @apply mt-2.5 size-1.5 shrink-0 rounded-full bg-accent;
   }
+}
+
+/* Arabic script: Latin tracking and uppercase make eyebrows and headings look spaced out. */
+html[dir='rtl'] .section-eyebrow,
+html[dir='rtl'] .section-title,
+html[dir='rtl'] .tracking-tight,
+html[dir='rtl'] .locale-label {
+  letter-spacing: 0;
+}
+
+html[dir='rtl'] .section-eyebrow,
+html[dir='rtl'] .locale-label {
+  text-transform: none;
 }

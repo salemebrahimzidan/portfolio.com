@@ -2,226 +2,203 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "journey": "Journey",
+    "skills": "Tech Stack",
+    "trust": "Approach",
     "projects": "Projects",
-    "services": "Services",
+    "qualification": "Experience",
     "contact": "Contact"
   },
   "a11y": {
     "goHome": "Go to home",
     "primaryNav": "Primary",
     "switchLanguage": "Switch language",
+    "otherLanguage": "عربي",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "menu": "Menu",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "whatsapp": "WhatsApp"
+  },
+  "brand": {
+    "name": "Salem Ebrahim"
   },
   "seo": {
-    "title": "Salem Ebrahim | Enterprise React Frontend Developer",
-    "description": "Frontend React developer specialized in enterprise SaaS systems. I build scalable, secure, high-performance dashboards with React, TypeScript, and TanStack Query."
+    "title": "Salem Ebrahim | Frontend Developer",
+    "description": "Frontend Developer building responsive web applications, dashboards, and business systems with React and TypeScript."
   },
   "hero": {
-    "kicker": "Hi, I'm Salem Ebrahim",
-    "title": "Front-End Web Developer",
-    "lead": "I build beautiful, responsive websites with React and modern JavaScript — clean UI, solid UX, and performance in mind.",
-    "hireMe": "Hire Me",
-    "letsTalk": "Let's Talk"
+    "kicker": "React • TypeScript • Modern Web Applications",
+    "headline": "Frontend Developer building modern React applications",
+    "subline": "I build responsive, scalable web applications and business dashboards using React, TypeScript, and modern frontend technologies.",
+    "viewProjects": "View Projects",
+    "contact": "Contact Me",
+    "downloadCv": "Download CV",
+    "support": "Focused on clean architecture, performance, usability, and maintainable code.",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "stack": "React · TypeScript"
   },
   "about": {
-    "title": "About Me",
-    "subtitle": "A quick introduction and what I focus on day to day.",
-    "cardTitle": "Passionate about the web",
-    "cardBody": "I'm a front-end developer with a software engineering background. I enjoy turning ideas into fast, accessible interfaces, collaborating with others, and learning something new every day.",
-    "skillsIntro": "A quick overview of what I'm strongest at.",
-    "codingSkillsTitle": "Coding Skills",
-    "professionalSkillsTitle": "Professional Skills"
+    "intro": "About Me",
+    "bio": "I'm a Frontend Developer specializing in React and TypeScript, focused on building responsive web applications, dashboards, and business systems. I enjoy turning complex workflows into clear, usable interfaces and working with APIs, authentication, data management, and role-based applications.",
+    "whatIDoHeading": "What I Actually Do",
+    "whatIDoLead": "Recent work includes customer-facing websites, admin panels, and an operations dashboard that is live in production.",
+    "whatIDoFocusLabel": "Practical work includes:",
+    "whatIDoBullets": [
+      "React and TypeScript applications",
+      "Business dashboards",
+      "Admin panels",
+      "REST API integration",
+      "Authentication and authorization flows",
+      "Role-based interfaces",
+      "Customer, transaction, and reporting screens",
+      "Responsive web applications",
+      "Production deployment"
+    ],
+    "whatIDoClosing": "I focus on interfaces that stay clear as the workflow gets more detailed."
   },
-  "stats": [
-    {
-      "icon": "users",
-      "title": "Years experience",
-      "value": "0+",
-      "valueFrom": "yearsSince2022"
-    },
-    {
-      "icon": "gear",
-      "title": "React & web",
-      "value": "Expert"
-    },
-    {
-      "icon": "trophy",
-      "title": "Client satisfaction",
-      "value": "100%"
+  "skills": {
+    "title": "Tech Stack",
+    "intro": "The tools I use to build responsive React applications, dashboards, and business interfaces.",
+    "categories": {
+      "frontend": "Frontend",
+      "state-data": "State & Data",
+      "forms-validation": "Forms & Validation",
+      "tools": "Tools"
     }
-  ],
+  },
+  "trust": {
+    "eyebrow": "In practice",
+    "title": "Trust & credibility",
+    "statement": "Building reliable frontend experiences for business applications, from responsive interfaces and API integrations to role-based dashboards and data-driven workflows.",
+    "coreStack": "Core stack"
+  },
   "projects": {
-    "title": "My Projects",
-    "subtitle": "A few things I've built — swap in your own links and screenshots anytime.",
-    "viewProject": "View Project"
-  },
-  "projectsList": [
-    {
-      "title": "E‑Commerce Site",
-      "description": "Product listing, cart flow, and responsive layout.",
-      "href": "#",
-      "preview": "a"
-    },
-    {
-      "title": "Dashboard App",
-      "description": "Charts, tables, and dark-friendly UI components.",
-      "href": "#",
-      "preview": "b"
-    },
-    {
-      "title": "Landing Page",
-      "description": "Marketing page with strong hero and clear CTAs.",
-      "href": "#",
-      "preview": "c"
+    "eyebrow": "Selected work",
+    "title": "Case studies",
+    "subtitle": "Deployed work, with the stack and the main frontend responsibilities for each project.",
+    "highlightsLabel": "Highlights",
+    "opensInNewTab": " (opens in a new tab)",
+    "previewAlt": "{{title}} preview",
+    "items": {
+      "aliman-rouh-golden": {
+        "title": "Al-Iman Rouh Golden — Client & Operations Management System",
+        "description": "A business operations management system built to manage customers, service transactions, profits, user permissions, and operational reporting through a centralized responsive dashboard.",
+        "highlights": [
+          "Customer management",
+          "Multiple service transactions per customer",
+          "Profit tracking",
+          "Daily and monthly reporting",
+          "Filtering by customer, nationality, and city",
+          "Admin and standard user roles",
+          "Role-based permissions",
+          "Authentication and protected application areas",
+          "Supabase Row Level Security",
+          "Responsive dashboard for business operations"
+        ],
+        "demoLabel": "Live App",
+        "liveLabel": "Get in touch"
+      },
+      "aliman-rouh": {
+        "title": "Al-Iman Rouh — Travel Management Platform",
+        "description": "A full travel and tourism web platform consisting of a customer-facing website and a dedicated admin dashboard for managing travel content, packages, and operational data.",
+        "highlights": [
+          "Customer-facing responsive travel website",
+          "Dedicated Admin Dashboard",
+          "Dynamic content and package management",
+          "Admin-controlled data management",
+          "Frontend integration with backend APIs",
+          "Travel and Umrah service workflows",
+          "Responsive interfaces for desktop and mobile",
+          "Production deployment across multiple applications"
+        ],
+        "demoLabel": "Live Website",
+        "liveLabel": "Admin Dashboard"
+      },
+      "p2": {
+        "title": "Regional Services — Marketing Web App",
+        "description": "A responsive multi-page marketing site for a local services business, with service pages, an Arabic and English switch, and direct WhatsApp and phone contact actions.",
+        "highlights": [
+          "Multi-page layout for services, about, FAQ, and contact",
+          "Arabic and English language switch",
+          "Responsive layout with mobile navigation",
+          "WhatsApp and phone as the main contact actions"
+        ],
+        "demoLabel": "Demo",
+        "liveLabel": "Get in touch"
+      },
+      "p1": {
+        "title": "Personal Portfolio — React SPA",
+        "description": "A responsive single-page portfolio built with reusable React and TypeScript components.",
+        "highlights": [
+          "Reusable React component structure",
+          "TypeScript across the app",
+          "Responsive layout for desktop and mobile",
+          "Lazy-loaded images and a Vite production build"
+        ],
+        "demoLabel": "Demo",
+        "liveLabel": "View details"
+      }
     }
-  ],
-  "services": {
-    "title": "My Services",
-    "subtitle": "What I can do for you"
   },
-  "servicesList": [
-    {
-      "icon": "web",
-      "title": "Web Development",
-      "description": "Responsive sites and apps with React and modern tooling."
-    },
-    {
-      "icon": "responsive",
-      "title": "Responsive Design",
-      "description": "Layouts that work beautifully from mobile to desktop."
-    },
-    {
-      "icon": "ui",
-      "title": "UI / UX",
-      "description": "Clear hierarchy, spacing, and interaction polish."
-    },
-    {
-      "icon": "seo",
-      "title": "Performance & SEO basics",
-      "description": "Semantic HTML, fast loads, and sensible meta structure."
-    }
-  ],
-  "codingSkills": [
-    { "label": "HTML", "value": 90 },
-    { "label": "CSS", "value": 80 },
-    { "label": "JavaScript", "value": 65 },
-    { "label": "React.js", "value": 70 },
-    { "label": "Tailwind CSS", "value": 70 },
-    { "label": "Call API (REST)", "value": 60 },
-    { "label": "GitHub", "value": 75 },
-    { "label": "GitLab", "value": 70 }
-  ],
-  "professionalSkills": [
-    { "label": "Excel", "value": 95 },
-    { "label": "Word", "value": 67 },
-    { "label": "Marketing", "value": 85 },
-    { "label": "CV ATS", "value": 80 }
-  ],
-  "journey": {
-    "title": "My Journey",
-    "subtitle": "Education and experience over the years.",
-    "educationTitle": "Education",
-    "experienceTitle": "Experience",
-    "education": [
+  "qualification": {
+    "title": "My Qualification",
+    "subtitle": "Where I studied and the roles that shaped how I work today.",
+    "tabsLabel": "Qualification type",
+    "education": "Education",
+    "experience": "Experience",
+    "educationItems": [
       {
-        "period": "2015 – 2018",
-        "title": "General Secondary School — West Tira Secondary School",
-        "bullets": [
-          "Participated in national academic competitions.",
-          "First place at Al-Hamul Center.",
-          "Developed leadership and teamwork skills."
-        ]
+        "title": "General Secondary School",
+        "organization": "West Tira Joint Secondary School",
+        "date": "2015 – 2018",
+        "note": "National-level academic competition; first place at Al-Hamul Center."
       },
       {
-        "period": "2018 – 2022",
-        "title": "Bachelor's Degree — Kafr El-Sheikh University",
-        "subtitle": "Computers and Information (Software Engineering)",
-        "bullets": [
-          "Strong foundation in software engineering principles and best practices.",
-          "Focused on building modern, responsive web experiences."
-        ]
+        "title": "Bachelor's — Software Engineering",
+        "organization": "Kafr El-Sheikh University, Computers and Information",
+        "date": "2018 – 2022",
+        "note": "Focus on software engineering fundamentals and modern web development."
       }
     ],
-    "experience": [
+    "experienceItems": [
       {
-        "period": "12/2025 – Present",
-        "title": "BITS — Binary Integrated Technology Solutions — Saudi Arabia",
-        "subtitle": "Frontend Developer",
-        "bullets": [
-          "Building and optimizing enterprise-grade React/TypeScript applications."
-        ]
+        "title": "Frontend Developer",
+        "organization": "BITS — Binary Integrated Technology Solutions | Saudi Arabia",
+        "date": "12/2025 – 10/2026",
+        "note": "Built and optimized enterprise-grade React/TypeScript applications for asset and operations management domains."
       },
       {
-        "period": "2023 – 2024",
-        "title": "Nile Delta Tech",
-        "subtitle": "Junior Frontend Developer",
-        "bullets": [
-          "Developed responsive web apps using React.",
-          "Built clean UI components and improved user experience.",
-          "Integrated APIs and handled basic frontend logic."
-        ]
-      },
-      {
-        "period": "2022 – 2023",
-        "title": "Marketing Online — Riseoo — Egypt",
-        "subtitle": "Social Media Marketing",
-        "bullets": [
-          "Promoted brands on Instagram, TikTok, and Snapchat.",
-          "Created engaging content and campaigns for clients.",
-          "Collaborated with teams to grow online presence."
-        ]
+        "title": "Social Media Marketing",
+        "organization": "Marketing Online | Riseoo | Egypt",
+        "date": "2022 – 2023",
+        "note": "Content and campaigns across Instagram, TikTok, and Snapchat."
       }
     ]
   },
   "contact": {
-    "title": "Contact Me",
-    "subtitle": "Send a message — I'll get back to you as soon as I can.",
-    "name": "Your Name",
-    "email": "Your Email",
-    "message": "Your Message",
-    "namePlaceholder": "Your name",
-    "emailPlaceholder": "you@email.com",
-    "messagePlaceholder": "Write your message...",
+    "title": "Get In Touch",
+    "subtitle": "Send a message and I will get back to you as soon as I can.",
+    "location": "Location",
+    "locationValue": "Riyadh, Saudi Arabia",
+    "email": "Email",
+    "phone": "Phone",
+    "name": "Name",
+    "message": "Message",
     "submit": "Send Message",
-    "sentHint": "Ready to send via your email app",
-    "emailSubject": "Portfolio message from {{name}}",
-    "emailBody": "Name: {{name}}\nEmail: {{email}}\n\n{{message}}\n",
-    "phoneLabel": "Phone",
-    "phoneValue": "+966 56 050 6289",
-    "emailLabel": "Email",
-    "emailDisplay": "salemebrahim165@gmail.com",
-    "connectTitle": "Connect"
+    "sending": "Sending...",
+    "success": "Message sent successfully.",
+    "error": "Failed to send message. Please try again."
   },
-  "socials": [
-    {
-      "id": "instagram",
-      "href": "https://instagram.com/",
-      "label": "Instagram"
-    },
-    {
-      "id": "facebook",
-      "href": "https://facebook.com/",
-      "label": "Facebook"
-    },
-    {
-      "id": "twitter",
-      "href": "https://twitter.com/",
-      "label": "Twitter"
-    },
-    {
-      "id": "linkedin",
-      "href": "https://www.linkedin.com/in/salemebrahim",
-      "label": "LinkedIn"
-    },
-    {
-      "id": "whatsapp",
-      "href": "https://wa.me/966560506289",
-      "label": "WhatsApp"
-    }
-  ],
+  "cta": {
+    "heading": "Need a scalable frontend for your system? I can help you build it professionally.",
+    "button": "Contact Me"
+  },
   "footer": {
-    "copyright": "Copyright © {{year}} by Salem Ebrahim | All rights reserved."
+    "blurb": "Frontend Developer working with React and TypeScript — web applications, dashboards, and business systems.",
+    "quickLinks": "Quick Links",
+    "connect": "Connect With Me",
+    "copyright": "© {{year}} {{name}}. All rights reserved."
   }
 }

@@ -1,58 +1,47 @@
-export type SkillEntry = {
-  label: string
-  value: number
-}
-
-export type StatItem = {
-  icon: 'users' | 'gear' | 'trophy'
+export type TimelineCopy = {
   title: string
-  /** Shown when `valueFrom` is not used */
-  value: string
-  /** Override: compute years of experience from a fixed start year (see App.tsx) */
-  valueFrom?: 'yearsSince2022'
+  organization: string
+  date: string
+  note?: string
+  bullets?: string[]
 }
 
-export type ProjectItem = {
+export type ProjectCopy = {
   title: string
   description: string
-  href: string
-  preview: 'a' | 'b' | 'c'
+  highlights: string[]
+  demoLabel: string
+  liveLabel: string
 }
 
-export type ServiceItem = {
-  icon: 'web' | 'responsive' | 'ui' | 'seo'
-  title: string
-  description: string
-}
+export type ProjectCopyId = 'aliman-rouh-golden' | 'aliman-rouh' | 'p2' | 'p1'
 
-export type SocialLink = {
-  id: 'instagram' | 'facebook' | 'twitter' | 'linkedin' | 'whatsapp'
-  href: string
-  label: string
-}
-
-export type JourneyEntry = {
-  period: string
-  title: string
-  subtitle?: string
-  bullets: string[]
-}
+export type SkillCategoryId = 'frontend' | 'state-data' | 'forms-validation' | 'tools'
 
 export type LocaleMessages = {
   nav: {
     home: string
     about: string
-    journey: string
+    skills: string
+    trust: string
     projects: string
-    services: string
+    qualification: string
     contact: string
   }
   a11y: {
     goHome: string
     primaryNav: string
     switchLanguage: string
+    otherLanguage: string
     openMenu: string
     closeMenu: string
+    menu: string
+    github: string
+    linkedin: string
+    whatsapp: string
+  }
+  brand: {
+    name: string
   }
   seo: {
     title: string
@@ -60,63 +49,76 @@ export type LocaleMessages = {
   }
   hero: {
     kicker: string
-    title: string
-    lead: string
-    hireMe: string
-    letsTalk: string
+    headline: string
+    subline: string
+    viewProjects: string
+    contact: string
+    downloadCv: string
+    support: string
+    github: string
+    linkedin: string
+    stack: string
   }
   about: {
-    title: string
-    subtitle: string
-    cardTitle: string
-    cardBody: string
-    skillsIntro: string
-    codingSkillsTitle: string
-    professionalSkillsTitle: string
+    intro: string
+    bio: string
+    whatIDoHeading: string
+    whatIDoLead: string
+    whatIDoFocusLabel: string
+    whatIDoBullets: string[]
+    whatIDoClosing: string
   }
-  stats: StatItem[]
+  skills: {
+    title: string
+    intro: string
+    categories: Record<SkillCategoryId, string>
+  }
+  trust: {
+    eyebrow: string
+    title: string
+    statement: string
+    coreStack: string
+  }
   projects: {
+    eyebrow: string
     title: string
     subtitle: string
-    viewProject: string
+    highlightsLabel: string
+    opensInNewTab: string
+    previewAlt: string
+    items: Record<ProjectCopyId, ProjectCopy>
   }
-  projectsList: ProjectItem[]
-  services: {
+  qualification: {
     title: string
     subtitle: string
-  }
-  servicesList: ServiceItem[]
-  codingSkills: SkillEntry[]
-  professionalSkills: SkillEntry[]
-  journey: {
-    title: string
-    subtitle: string
-    educationTitle: string
-    experienceTitle: string
-    education: JourneyEntry[]
-    experience: JourneyEntry[]
+    tabsLabel: string
+    education: string
+    experience: string
+    educationItems: TimelineCopy[]
+    experienceItems: TimelineCopy[]
   }
   contact: {
     title: string
     subtitle: string
-    name: string
+    location: string
+    locationValue: string
     email: string
+    phone: string
+    name: string
     message: string
-    namePlaceholder: string
-    emailPlaceholder: string
-    messagePlaceholder: string
     submit: string
-    sentHint: string
-    emailSubject: string
-    emailBody: string
-    phoneLabel: string
-    phoneValue: string
-    emailLabel: string
-    emailDisplay: string
-    connectTitle: string
+    sending: string
+    success: string
+    error: string
   }
-  socials: SocialLink[]
+  cta: {
+    heading: string
+    button: string
+  }
   footer: {
+    blurb: string
+    quickLinks: string
+    connect: string
     copyright: string
   }
 }

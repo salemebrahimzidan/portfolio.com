@@ -1,111 +1,62 @@
-import { memo } from 'react'
-import type { SkillEntry, SkillLevel } from '../../data/portfolio'
-import { skillCategories, skillsEnterpriseIntro } from '../../data/portfolio'
+import type { SkillEntry } from '../../data/portfolio'
+import { skillCategories } from '../../data/portfolio'
+import type { SkillCategoryId } from '../../providers/localeTypes'
+import { useI18n } from '../../providers/i18n-context'
 import { Reveal } from '../ui/Reveal'
 import { SkillIcon } from './SkillIcon'
 
-function tierFilled(level: SkillLevel): number {
-  switch (level) {
-    case 'Advanced':
-      return 3
-    case 'Strong':
-      return 2
-    default:
-      return 1
-  }
-}
-
-function levelBadgeClass(level: SkillLevel): string {
-  switch (level) {
-    case 'Advanced':
-      return 'border-primary/20 bg-primary/5 text-primary'
-    case 'Strong':
-      return 'border-accent/20 bg-accent/5 text-accent'
-    default:
-      return 'border-border bg-secondary text-muted-foreground'
-  }
-}
-
-const SkillCard = memo(function SkillCard({ skill, delay }: { skill: SkillEntry; delay: number }) {
-  const filled = tierFilled(skill.level)
-
+function TechTile({ skill }: { skill: SkillEntry }) {
   return (
-    <Reveal delayMs={delay}>
-      <article
-        className="surface-card flex h-full flex-col p-5 transition-shadow hover:shadow-[0_16px_48px_rgba(15,23,42,0.12)] sm:p-6"
-        aria-label={`${skill.name}, ${skill.level}`}
-      >
-        <div className="mb-5 flex items-start justify-between gap-3">
-          <div className="flex size-19 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary">
-            <SkillIcon skillId={skill.id} size={42} />
-          </div>
-          <span
-            className={`shrink-0 rounded-full border px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wider sm:text-xs ${levelBadgeClass(skill.level)}`}
-          >
-            {skill.level}
-          </span>
-        </div>
-
-        <h3 className="mb-6 text-base font-semibold leading-snug tracking-tight text-primary sm:text-lg">
-          {skill.name}
-        </h3>
-
-        <div className="mt-auto">
-          <span className="sr-only">Proficiency tier: {skill.level}</span>
-          <div className="flex gap-1.5" aria-hidden>
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className={`h-1.5 flex-1 rounded-full ${
-                  i < filled ? 'bg-primary' : 'bg-border'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      </article>
-    </Reveal>
+    <li className="flex min-w-0 items-center gap-2.5 rounded-lg border border-border bg-white px-2.5 py-2 transition-colors hover:border-primary/20 hover:bg-secondary sm:gap-3 sm:px-3 sm:py-2.5">
+      <span className="flex size-8 shrink-0 items-center justify-center">
+        <SkillIcon skillId={skill.id} />
+      </span>
+      <span dir="ltr" className="min-w-0 text-sm font-semibold leading-snug tracking-tight text-primary">
+        {skill.name}
+      </span>
+    </li>
   )
-})
+}
+
+function isSkillCategoryId(id: string): id is SkillCategoryId {
+  return id === 'frontend' || id === 'state-data' || id === 'forms-validation' || id === 'tools'
+}
 
 export function SkillsSection() {
+  const { t, messages } = useI18n()
+
   return (
     <section
       id="skills"
-      className="section-shell rounded-3xl bg-secondary/60"
+      className="section-shell rounded-3xl bg-secondary/60 px-4 sm:px-6 lg:px-8"
       aria-labelledby="skills-heading"
     >
       <Reveal>
-        <div className="mb-14 max-w-3xl sm:mb-16 md:mx-auto md:text-center">
+        <div className="mb-8 max-w-3xl sm:mb-10 md:mx-auto md:text-center">
           <h2 id="skills-heading" className="section-title mb-4">
-            Tech Stack
+            {t('skills.title')}
           </h2>
-          <p className="section-lead md:mx-auto">{skillsEnterpriseIntro}</p>
+          <p className="section-lead md:mx-auto">{t('skills.intro')}</p>
         </div>
       </Reveal>
 
-      <div className="space-y-14 sm:space-y-16">
+      <div className="space-y-6 sm:space-y-8">
         {skillCategories.map((category, catIndex) => (
-          <div key={category.id}>
-            <Reveal delayMs={Math.min(catIndex * 45, 120)}>
-              <div className="mb-6 flex items-center gap-3 sm:mb-8">
-                <h3 className="text-lg font-semibold tracking-tight text-primary sm:text-xl">
-                  {category.label}
-                </h3>
-                <span className="h-px min-w-8 flex-1 bg-border" aria-hidden />
-              </div>
-            </Reveal>
-
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-              {category.skills.map((skill, skillIndex) => (
-                <SkillCard
-                  key={skill.id}
-                  skill={skill}
-                  delay={Math.min(catIndex * 50 + skillIndex * 40, 220)}
-                />
-              ))}
+          <Reveal key={category.id} delayMs={Math.min(catIndex * 45, 120)}>
+            <div className="mb-4 flex items-center gap-3 sm:mb-5">
+              <h3 className="text-lg font-semibold tracking-tight text-primary sm:text-xl">
+                {isSkillCategoryId(category.id) ? messages.skills.categories[category.id] : category.label}
+              </h3>
+              <span className="h-px min-w-8 flex-1 bg-border" aria-hidden />
             </div>
-          </div>
+            <div className="rounded-xl border border-border bg-white p-3 sm:p-4 md:p-5">
+              <ul className="grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-3 lg:grid-cols-4">
+                {category.skills.map((skill) => (
+                  <TechTile key={skill.id} skill={skill} />
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         ))}
       </div>
     </section>
